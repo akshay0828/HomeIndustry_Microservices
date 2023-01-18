@@ -35,7 +35,7 @@ public class Products {
 
 	@ManyToOne(targetEntity = User.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	private User user;
+	private User user;//vendor details
 	// Parameterless Constructor
 
 	public Products() {
@@ -97,7 +97,6 @@ public class Products {
 		this.productDescription = productDescription;
 		this.quantity = quantity;
 		this.image = image;
-		this.eimage = eimage;
 		this.user = user;
 	}
 

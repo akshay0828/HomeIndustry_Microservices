@@ -28,10 +28,10 @@ public class User {
 	private String username;// Username of the user.
 	private String pass;// Password of the use.
 
-	private String street;// Address of the user.
+	private String address;// Address of the user.
 	private String area;// Address of the user.
-	private String city;// Address of the user.
-	private String pincode;// Address of the user.
+//	private String city;// Address of the user.
+//	private String pincode;// Address of the user.
 	private String contact;// Contact information of the user.
 	private boolean enabled;
 	private String role;// Role of the user
@@ -68,36 +68,28 @@ public class User {
 		return id;
 	}
 
-	public User(String name, String email, String username, String pass, String street, String area, String city,
-			String pincode, String contact, boolean enabled, String role, Set<Role> roles) {
+	public User(String name, String email, String username, String pass, String address, String area, String contact, boolean enabled, String role, Set<Role> roles) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.username = username;
 		this.pass = pass;
-		this.street = street;
+		this.address = address;
 		this.area = area;
-		this.city = city;
-		this.pincode = pincode;
 		this.contact = contact;
 		this.enabled = enabled;
 		this.role = role;
 		this.roles = roles;
 	}
 
-	public User(String name, String email, String username, String pass, String street, String area, String city,
-			String pincode, String contact, String role) {
+	public User(String name, String email, String username, String pass, String address, String area,  String contact, String role) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.username = username;
 		this.pass = pass;
-
-		this.street = street;
+		this.address = address;
 		this.area = area;
-		this.city = city;
-		this.pincode = pincode;
-		this.contact = contact;
 		this.enabled = true;
 		this.role = role;
 	}
@@ -138,12 +130,12 @@ public class User {
 		this.pass = pass;
 	}
 
-	public String getStreet() {
-		return street;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setaddress(String address) {
+		this.address = address;
 	}
 
 	public String getArea() {
@@ -152,22 +144,6 @@ public class User {
 
 	public void setArea(String area) {
 		this.area = area;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
 	}
 
 	public String getContact() {
@@ -205,7 +181,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", username=" + username + ", pass=" + pass
-				+ ", street=" + street + ", area=" + area + ", city=" + city + ", pincode=" + pincode + ", contact="
+				+ ", addresst=" + address + ", area=" + area + ", contact="
 				+ contact + ", enabled=" + enabled + ", role=" + role + ", roles=" + roles + ", products=" + products
 				+ "]";
 	}
