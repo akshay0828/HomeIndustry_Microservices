@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.spiceland.customer.entity.Products;
+import com.spiceland.customer.entity.CartLine;
 
 @Repository
-public interface ProductsRepo extends JpaRepository<Products, Integer>{
+public interface CartLineRepo extends JpaRepository<CartLine, Integer>{
 
-	List<Products> findByProductName(String pName);
+	List<CartLine> findByUserId(int customerId);
 
 }

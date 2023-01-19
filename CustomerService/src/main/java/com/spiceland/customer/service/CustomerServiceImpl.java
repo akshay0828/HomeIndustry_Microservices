@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spiceland.customer.dao.UserDAO;
+import com.spiceland.customer.entity.CartLine;
 import com.spiceland.customer.entity.Orders;
 import com.spiceland.customer.entity.Products;
 import com.spiceland.customer.entity.User;
+import com.spiceland.customer.repo.CartLineRepo;
 import com.spiceland.customer.repo.OrdersRepo;
 import com.spiceland.customer.repo.ProductsRepo;
 import com.spiceland.customer.repo.UserRepo;
@@ -30,6 +32,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private OrdersRepo ordersRepo;
+	
+	@Autowired
+	private CartLineRepo cartLineRepo; 
 	
 	@Override
 	public User getUser(int id) {
@@ -79,10 +84,26 @@ public class CustomerServiceImpl implements CustomerService {
 //		,BeanPropertyRowMapper.newInstance(Products.class)
 	return 	prod;
 	}
+	
+	@Override
+	public List<Products> getProductDetailsWithSameProductName(String pName){
+		return productsRepo.findByProductName(pName);
+	}
 
 	@Override
-	public void getVendorDetailsForProduct(String pName) {
-		// TODO Auto-generated method stub
+	public List<User> getVendorDetailsForProduct(String pName) {
+		List<Products> productDetails=getProductDetailsWithSameProductName(pName);
+		List<User> vendorDetails=new ArrayList<>();
+		for (Products products : productDetails) {
+			vendorDetails.add(products.getUser());
+		}
 		
+		return vendorDetails;
+	}
+
+	@Override
+	public List<CartLine> getCartDetails(int customerId) {
+		List<CartLine> cart=cartLineRepo.findByUserId(customerId);
+		return cart;
 	}
 }
