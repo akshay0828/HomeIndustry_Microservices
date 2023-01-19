@@ -44,7 +44,7 @@ public class UserDetailsServiceImpl
 	
 	@Override
 	public void updateUser(User user) {
-		userdao.updateUserDao(user.getName(), user.getEmail(), user.getContact(), user.getStreet(), user.getArea(), user.getCity(), user.getPincode(), user.getId());
+		userdao.updateUserDao(user.getName(), user.getEmail(), user.getContact(), user.getArea(), user.getAddress(), user.getId());
 
 	} 	
 
