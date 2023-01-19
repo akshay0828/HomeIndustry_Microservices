@@ -1,10 +1,12 @@
 package com.spiceland.customer.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,9 +86,26 @@ public class CustomerContoller {
 	
 	@GetMapping("/SpecificProduct/{id}/{productName}")
 	public String specificProduct(@PathVariable("id") int id, @PathVariable("productName") String pName, Model model) {
-		customerService.getVendorDetailsForProduct(pName);
-		return "abc";
+		model.addAttribute("vendor",  customerService.getVendorDetailsForProduct(pName));
+		model.addAttribute("id", id);
+		model.addAttribute("product", customerService.getProductDetailsWithSameProductName(pName));
+		
+		return "specificProduct";
 	}
+	
+	
+	@PostMapping("/AddToCart/{id}/{productId}")
+	public String addItemToCart(@PathVariable("id") int id,@PathVariable("productId") int productId,Model model) {
+		return "af";
+	}
+	
+	@GetMapping("/CartDetails/{id}")
+	public String cartDetails(@PathVariable("id") int customerId, Model model) {
+		
+		model.addAttribute("cart", customerService.getCartDetails(customerId));
+		return "cartDetails";
+	}
+	
 	
 	
 	
