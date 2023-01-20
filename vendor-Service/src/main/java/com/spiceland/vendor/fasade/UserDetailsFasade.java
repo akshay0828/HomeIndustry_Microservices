@@ -21,7 +21,7 @@ public class UserDetailsFasade {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	private static final String PRODUCT_URL="http://localhost:9001/api/login";
+	private static final String PRODUCT_URL="http://localhost:9001/api/loginservice";
 	
 	//http://localhost:8080/username/73
 	public User getUsername(int id){

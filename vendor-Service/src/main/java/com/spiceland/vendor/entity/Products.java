@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 public class Products {
 
 	@Id
-/*	@GeneratedValue(strategy = GenerationType.SEQUENCE)*/
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;// Unique Constraint of the product.
 	private String productName;// Name of the product.
 	private double price;// Price of the product.
@@ -31,7 +31,7 @@ public class Products {
 	@Column(name = "EIMAGE")
 	private String eimage;*/
 
-	@ManyToOne(targetEntity = User.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = User.class, cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 	// Parameterless Constructor
@@ -40,7 +40,7 @@ public class Products {
 	}
 
 	public User getUser() {
-		return null;
+		return user;
 	}
 
 	public void setUser(User user) {

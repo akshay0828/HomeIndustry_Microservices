@@ -30,9 +30,9 @@ public class ProductServiceImpl implements ProductService {
 	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	
 	@Override
-	public void  productUpdate(String productName,Double price,Float weight,int quantity,String productDescription,int id) throws Exception {
+	public void  productUpdate(Products pro) throws Exception {
 		
-		productdao.productUpdateDao(productName, price, weight, quantity, productDescription, id);
+		productdao.productUpdateDao(pro.getProductName(), pro.getPrice(), pro.getWeight(), pro.getQuantity(), pro.getProductDescription(), pro.getId());
 		
 		
 		
