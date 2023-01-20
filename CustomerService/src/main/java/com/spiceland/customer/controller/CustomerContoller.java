@@ -1,6 +1,8 @@
 package com.spiceland.customer.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spiceland.customer.entity.CartLine;
+import com.spiceland.customer.entity.Orders;
+import com.spiceland.customer.entity.Products;
 import com.spiceland.customer.entity.User;
 import com.spiceland.customer.service.CustomerService;
 
@@ -22,6 +27,15 @@ public class CustomerContoller {
 	private CustomerService customerService;
 	
 	
+	@GetMapping("/customerDetails/{id}")
+	public User customerDetails(@PathVariable("id") int id){
+		return customerService.getUser(id);
+	}
+	
+	@GetMapping("/getProducts")
+	public List<Products> getProducts(){
+		return customerService.getproducts();
+	}
 
 	
 	
@@ -30,11 +44,11 @@ public class CustomerContoller {
 
 
 
-		final User u = customerService.getUser(id);
-		model.addAttribute("add", u.getName());
-		model.addAttribute("user", u.getId());
-		model.addAttribute("id", id);
-		
+//		final User u = customerService.getUser(id);
+//		model.addAttribute("add", u.getName());
+//		model.addAttribute("user", u.getId());
+//		model.addAttribute("id", id);
+//		
 		
 		model.addAttribute("products", customerService.getproducts());
 		
@@ -53,16 +67,22 @@ public class CustomerContoller {
 		return "CustomerHome";
 	}
 	
+	
+	@GetMapping("/searchingProducts")
+	public List<Products> searchingProducts(@RequestParam(value = "text", required = false) String search){
+		return customerService.searchForProduct(search);
+	}
+	
 	/*
 	 * If Customer wants to update the profile Navigate to updateprofile
 	 * page.
 	 */
-	@GetMapping("/UpdateCustomer/{id}")
-	public String updateCustomer(@PathVariable("id") int id, Model model) {
-		model.addAttribute("user",customerService.getUser(id));
-		model.addAttribute("id", id);
-		return "/updateCustomer";
-	}
+//	@GetMapping("/UpdateCustomer/{id}")
+//	public String updateCustomer(@PathVariable("id") int id, Model model) {
+//		model.addAttribute("user",customerService.getUser(id));
+//		model.addAttribute("id", id);
+//		return "/updateCustomer";
+//	}
 	
 	
 	
@@ -77,20 +97,25 @@ public class CustomerContoller {
 	
 	
 	@GetMapping("/PreviousOrders/{id}")
-	public String previousOrders(@PathVariable("id") int id, Model model) {
+	public List<Orders> previousOrders(@PathVariable("id") int id, Model model) {
 		model.addAttribute("orders", customerService.getPreviousOrders(id));
 		model.addAttribute("id", id);
-		return "PreviousOrders";
+		return customerService.getPreviousOrders(id);
 	}
 	
 	
-	@GetMapping("/SpecificProduct/{id}/{productName}")
-	public String specificProduct(@PathVariable("id") int id, @PathVariable("productName") String pName, Model model) {
+	@GetMapping("/SpecificProduct/{productName}")
+	public List<Products> specificProduct(@PathVariable("productName") String pName, Model model) {
 		model.addAttribute("vendor",  customerService.getVendorDetailsForProduct(pName));
-		model.addAttribute("id", id);
+		
 		model.addAttribute("product", customerService.getProductDetailsWithSameProductName(pName));
 		
-		return "specificProduct";
+		return customerService.getProductDetailsWithSameProductName(pName);
+	}
+	
+	@GetMapping("/vendorDetailsForSpecificProduct/{productName}")
+	public List<User> vendorDetailsForSpecificProduct(@PathVariable("productName") String pName, Model model){
+		return customerService.getVendorDetailsForProduct(pName);
 	}
 	
 	
@@ -100,10 +125,10 @@ public class CustomerContoller {
 	}
 	
 	@GetMapping("/CartDetails/{id}")
-	public String cartDetails(@PathVariable("id") int customerId, Model model) {
+	public List<CartLine> cartDetails(@PathVariable("id") int customerId, Model model) {
 		
 		model.addAttribute("cart", customerService.getCartDetails(customerId));
-		return "cartDetails";
+		return customerService.getCartDetails(customerId);
 	}
 	
 	
