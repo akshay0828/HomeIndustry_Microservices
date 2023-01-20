@@ -25,10 +25,9 @@ public class UserDetailsServiceImpl
 
 	@Override
 	public void updateUser(User user) {
-		userdao.updateUserDao(user.getName(), user.getContact(), user.getAddress(), user.getArea(), user.getId());
+		userdao.updateUserDao(user);
 
 	}
-
 
 	// To get the id of that username.
 
@@ -45,6 +44,13 @@ public class UserDetailsServiceImpl
 	@Override
 	public List<User> getAlluser() {
 		return userRepository.findByRole("ADMIN");
+	}
+	@Override
+	public User getUsername(int id) {
+		logger.info("Fetching details of the user through Id");
+		User u = userRepository.findUsernameById(id);
+		logger.debug("user details of id" + id + "is" + u);
+		return u;
 	}
 
 	// Details of the user by id.

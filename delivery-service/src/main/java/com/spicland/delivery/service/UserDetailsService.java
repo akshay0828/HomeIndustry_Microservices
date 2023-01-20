@@ -20,5 +20,11 @@ public interface UserDetailsService {
 	// To update the details of the user.
 
 	void updateUser(User user);
+	
+	
+	
+	User getUsername(int id);
+
+
 
 }

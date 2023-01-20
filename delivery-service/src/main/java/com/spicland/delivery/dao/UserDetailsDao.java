@@ -1,8 +1,10 @@
 package com.spicland.delivery.dao;
 
+import com.spicland.delivery.entity.User;
+
 public interface UserDetailsDao {
 
 
-	void updateUserDao(String name, String contact, String address, String area, int id);
+	void updateUserDao(User user);
 
 }
