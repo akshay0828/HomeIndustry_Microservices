@@ -9,10 +9,9 @@ public class RegisterUserModel {
 	
 	private String cnfmpass;// Confirm the password .
 	
-	private String street;// Address of the user.
 	private String area;// Address of the user.
-	private String city;// Address of the user.
-	private String pincode;// Address of the user.
+	
+	private String address;
 	private String contact;// Contact information of the user.
 	private boolean enabled;
 	private String role;
@@ -49,29 +48,20 @@ public class RegisterUserModel {
 	public void setCnfmpass(String cnfmpass) {
 		this.cnfmpass = cnfmpass;
 	}
-	public String getStreet() {
-		return street;
-	}
-	public void setStreet(String street) {
-		this.street = street;
-	}
+	
 	public String getArea() {
 		return area;
 	}
 	public void setArea(String area) {
 		this.area = area;
 	}
-	public String getCity() {
-		return city;
+	
+	
+	public String getAddress() {
+		return address;
 	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getPincode() {
-		return pincode;
-	}
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getContact() {
 		return contact;

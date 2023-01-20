@@ -17,18 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -41,10 +29,8 @@ public class User {
 	private String username;// Username of the user.
 	private String pass;// Password of the use.
 
-	private String street;// Address of the user.
 	private String area;// Address of the user.
-	private String city;// Address of the user.
-	private String pincode;// Address of the user.
+	private String address;
 	private String contact;// Contact information of the user.
 	private boolean enabled;
 	private String role;// Role of the user
@@ -58,61 +44,65 @@ public class User {
 			CascadeType.PERSIST }, fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<Products> products;
 
-	/*
-	 * public User() {
-	 * 
-	 * roles = new ArrayList<>(); }
-	 */
-
-	public Set<Products> getProducts() {
-		return null;
-	}
-
-	public void setProducts(Set<Products> products) {
-		this.products = products;
-	}
-
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public User(String name, String email, String username, String pass, String street, String area, String city,
-			String pincode, String contact, boolean enabled, String role, Set<Role> roles) {
+	
+	public User(String name, String email, String username, String pass,  String area, String address,
+			String contact, boolean enabled, String role, Set<Role> roles, Set<Products> products) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.username = username;
 		this.pass = pass;
-		this.street = street;
 		this.area = area;
-		this.city = city;
-		this.pincode = pincode;
+		this.address = address;
+		this.contact = contact;
+		this.enabled = enabled;
+		this.role = role;
+		this.roles = roles;
+		this.products = products;
+	}
+	
+
+	public User(String name, String email, String username, String pass, String area, String address, String contact,
+			boolean enabled, String role, Set<Role> roles) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.username = username;
+		this.pass = pass;
+		this.area = area;
+		this.address = address;
 		this.contact = contact;
 		this.enabled = enabled;
 		this.role = role;
 		this.roles = roles;
 	}
 
-	public User(String name, String email, String username, String pass, String street, String area, String city,
-			String pincode, String contact, String role) {
+
+	public User(int id, String name, String email, String username, String pass,  String area,
+			String address, String contact, boolean enabled, String role, Set<Role> roles, Set<Products> products) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.username = username;
 		this.pass = pass;
-
-		this.street = street;
 		this.area = area;
-		this.city = city;
-		this.pincode = pincode;
+		this.address = address;
 		this.contact = contact;
-		this.enabled = true;
+		this.enabled = enabled;
 		this.role = role;
+		this.roles = roles;
+		this.products = products;
+	}
+
+
+
+
+
+
+
+	public int getId() {
+		return id;
 	}
 
 	public void setId(int id) {
@@ -151,13 +141,6 @@ public class User {
 		this.pass = pass;
 	}
 
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
 
 	public String getArea() {
 		return area;
@@ -167,20 +150,12 @@ public class User {
 		this.area = area;
 	}
 
-	public String getCity() {
-		return city;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getContact() {
@@ -215,12 +190,25 @@ public class User {
 		this.roles = roles;
 	}
 
+	public Set<Products> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Products> products) {
+		this.products = products;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", username=" + username + ", pass=" + pass
-				+ ", street=" + street + ", area=" + area + ", city=" + city + ", pincode=" + pincode + ", contact="
-				+ contact + ", enabled=" + enabled + ", role=" + role + ", roles=" + roles + ", products=" + products
-				+ "]";
+				+ ", area=" + area + ", address=" + address + ", contact=" + contact
+				+ ", enabled=" + enabled + ", role=" + role + ", roles=" + roles + ", products=" + products + "]";
 	}
+
+	/*
+	 * public User() {
+	 * 
+	 * roles = new ArrayList<>(); }
+	 */
 
 }
