@@ -10,6 +10,6 @@ import com.spiceland.customer.entity.CartLine;
 @Repository
 public interface CartLineRepo extends JpaRepository<CartLine, Integer>{
 
-	List<CartLine> findByUserId(int customerId);
+	List<CartLine> findByUserid(int customerId);
 
 }

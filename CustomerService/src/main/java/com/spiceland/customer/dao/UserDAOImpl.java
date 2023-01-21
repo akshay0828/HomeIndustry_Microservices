@@ -12,7 +12,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public void updateUserDao(String name, String contact, String address, String area,  int id) {
-		String sql = "update users set name = ?, contact=?, address= ?, area= ?, where id = ?";
+		String sql = "UPDATE users SET NAME=?,CONTACT=?,ADDRESS=?,area=? WHERE ID=?";
 
 		jdbcTemplate.update(sql, name,  contact, address, area, id);
 		

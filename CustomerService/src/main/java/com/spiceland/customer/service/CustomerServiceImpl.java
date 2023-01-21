@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<Orders> getPreviousOrders(int id) {
-		return  ordersRepo.findByUser_id(id);
+		return  ordersRepo.findByUserId(id);
 		 
 	}
 
@@ -58,17 +58,21 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<Products> getproducts() {
 		List<Products> pro=new ArrayList<>();
 		List<Products> allPro=productsRepo.findAll();
+		
 		for (Products products : allPro) {
+			int i=1;
 			for (Products products2 : pro) {
 				if(products2.getProductName().equals(products.getProductName())) {
-					break;
-					
-				}
-				else {
-					pro.add(products);
+					i=0;
 				}
 			}
+			if(i==1) {
+			pro.add(products);
+			}
+			
 		}
+		System.out.println("=========="+pro);
+//		return productsRepo.findAll();
 		return pro;
 	}
 	@Override
@@ -103,7 +107,12 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<CartLine> getCartDetails(int customerId) {
-		List<CartLine> cart=cartLineRepo.findByUserId(customerId);
+		List<CartLine> cart=cartLineRepo.findByUserid(customerId);
 		return cart;
+	}
+
+	@Override
+	public List<User> getUsers() {
+		return userRepo.findAll();
 	}
 }
