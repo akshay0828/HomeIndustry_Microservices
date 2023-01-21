@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spicland.delivery.entity.Orders;
+import com.spicland.delivery.entity.Products;
 import com.spicland.delivery.entity.User;
 import com.spicland.delivery.service.OrderService;
 
@@ -38,44 +39,7 @@ public class DeliveryController {
 
 	String location;
 
-	@GetMapping("/deliveryHome/{id}")
-	public String deliveryhome(@PathVariable("id") int id, ModelMap model) {
-		logger.info("Navigating towards delivery dashboard");
-		model.addAttribute("user", service.getuser(id));
-		List<Orders> orders = orderService.findAll();
-		ArrayList<Integer> customerIds = new ArrayList<>();
-
-		if (orders.size() > 0) {
-			logger.debug("The number of orders received is " + orders.size());
-
-			for (Orders order : orders) {
-
-				if (customerIds.contains(order.getUser_id())) {
-					logger.info("No Entry of duplicate location available in drop-down ");
-				} else {
-					customerIds.add(order.getUser_id());
-					logger.info("Entry of new location into the drop-down");
-				}
-			}
-		}
-
-		ArrayList<String> address = new ArrayList<>();
-
-		for (int i = 0; i < customerIds.size(); i++) {
-
-			User user = service.getByid(customerIds.get(i));
-
-			address.add(user.getArea());
-
-		}
-
-		model.addAttribute("address", address);
-
-		logger.debug("Currently available orders based on location is/are " + address);
-
-		return "delivery/deliverhome";
-	}
-
+	
 	@GetMapping("/getData")
 	public ResponseEntity<String> getData() {
 		return new ResponseEntity<>("Hello World!", HttpStatus.OK);
@@ -84,13 +48,6 @@ public class DeliveryController {
 	@GetMapping("/getUserData/{id}")
 	public User getUserData(@PathVariable("id") int id, Model model) {
 		return service.getuser(id);
-	}
-
-	@GetMapping("/UpdateDeliveryPerson/{id}")
-	public String updateDelivery(@PathVariable("id") int id, Model model) {
-		model.addAttribute("user", service.getuser(id));
-		model.addAttribute("id", id);
-		return "/update";
 	}
 
 	@PutMapping("/UpdateDeliveryPerson/{id}")
@@ -103,14 +60,42 @@ public class DeliveryController {
 	public List<Orders> getOrderDetails() {
 		return orderService.findAll();
 	}
+	
+	@GetMapping("/getOrdersAllByArea")
+	public List<String> getOrderAllByArea() {
+		List<Orders> orders = orderService.findAll();
+		ArrayList<String> address = new ArrayList<>();
+		for(Orders order :orders){
+			if(address.contains(order.getArea())) {
+				continue;
+			}
+			address.add(order.getArea());
+			
+		}
+		return address;
+	}
+	@GetMapping("/getProducts")
+	public List<Products> getProducts() {
+		return service.findAllProducts();
+	}
 
-	@GetMapping("/getOrders/{id}")
-	public String getOrders(@PathVariable("id") int id, @RequestParam("address") String loc, Model model) {
-		model.addAttribute("user", service.getByid(id));
-		location = loc;
-		model.addAttribute("Orders", orderService.FindByArea(loc));
-		logger.debug("Location " + loc);
-		return "delivery/getOrders";
+
+	@GetMapping("/getOrdersByArea/{id}")
+	public List<Orders> getOrdersByArea(@PathVariable("id") int id,@RequestParam("address") String loc){
+		return orderService.FindByArea(loc);
+	}
+	
+	@GetMapping("/acceptOrder/{vendor_id}/{customer_id}")
+	public List<String> getAddressDetails(@PathVariable("vendor_id") int vendor_id,@PathVariable("customer_id") int cust_id){
+		User vendor=service.getuser(vendor_id);
+		User customer=service.getuser(cust_id);
+		String vendor_add=vendor.getAddress();
+		String cust_add=customer.getAddress();
+		ArrayList<String> address = new ArrayList<>();
+		address.add(vendor_add);
+		address.add(cust_add);
+		System.out.println(address);
+		return address;
 	}
 
 	@GetMapping("/acceptorder/{id}/{userid}")

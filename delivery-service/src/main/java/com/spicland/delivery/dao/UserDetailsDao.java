@@ -6,5 +6,6 @@ public interface UserDetailsDao {
 
 
 	void updateUserDao(User user);
+	
 
 }

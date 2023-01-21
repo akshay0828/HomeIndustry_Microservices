@@ -126,7 +126,8 @@ public class AdminController {
 				logger.error(
 						"the product " + productName + " is already added to the list by the seller " + u1.getName());
 				model.addAttribute("perror", "Product is already added");
-				return "redirect:/admin/products/" + user_id;
+				flag = 0;
+				return "Product is already added";
 			}
 			Products p = new Products(productName, price, weight, productDescription, quantity, base64Encoded);
 
@@ -202,7 +203,7 @@ public class AdminController {
 
 			logger.debug("Existing product details  " + productservice.getProduct(id));
 
-			productservice.productUpdate(pro);
+			productservice.productUpdate(pro,id);
 			
 			logger.debug("Updated details " + productservice.getProduct(id));
 		} 
