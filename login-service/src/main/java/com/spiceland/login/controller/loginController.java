@@ -28,7 +28,7 @@ import com.spiceland.login.service.UserDetailsService;
 
 
 @RestController
-@CrossOrigin("http:localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/loginservice")
 public class loginController {
 
@@ -69,7 +69,7 @@ public class loginController {
                      registerUserModel.getUsername(),
                      webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
                     registerUserModel.getArea(), registerUserModel.getAddress(),
-                     registerUserModel.getContact(), false, registerUserModel.getRole(), null, null);
+                     registerUserModel.getContact(), true, registerUserModel.getRole(), null, null);
 				Role role1 = roleService.getbyName(user.getRole());
 				
 				Set<Role> roles = new HashSet<Role>();
@@ -97,12 +97,17 @@ public class loginController {
 
 	public String loginUser(@RequestBody RegisterUserModel user) throws Exception {
 		String url;
-		String s1 = "ADMIN";
-		String s2 = "USER";
+		String s1 = "VENDOR";
+		String s2 = "CUSTOMER";
 		String s3 = "DELIVERY";
+		System.out.println("=========="+user.getUsername());
 
+		String role1 = service.getrole(user.getUsername());
+		System.out.println(role1);
 		try {
+		
 			String role = service.getrole(user.getUsername());
+			System.out.println(role);
 			logger.debug("Logging with the role as " + role);
 			if (role.equals(s1)) {
 
@@ -118,7 +123,7 @@ public class loginController {
 
 					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
 //					return url = "redirect:/admin/adminhome/" + id;
-					return "Sucess";
+					return "sucess";
 				}
 
 				else {
@@ -142,7 +147,7 @@ public class loginController {
 					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
 					
 //					return url = "redirect:/user/userhome/" + id;
-					return "Sucess";
+					return "sucess";
 				}
 
 				else {
@@ -175,6 +180,7 @@ public class loginController {
 
 		} catch (Exception n) {
 			logger.error("Invalid credentials");
+			System.out.println(n);
 			return "Invalid Username and Password";
 		}
 		return "sucess";
@@ -187,10 +193,6 @@ public class loginController {
 	 * 
 	 */
 
-	@GetMapping("/forgotpassword")
-	public String adminForgotPassword() {
-		return "forgotpassword";
-	}
 
 	/*
 	 * Seller/Admin should enter the username If the username exists it wil
@@ -198,19 +200,18 @@ public class loginController {
 	 */
 	@PostMapping("/forgotpassword")
 
-	public String adminpostForgotPassword(@ModelAttribute User user, @RequestParam("username") String username,
-			Model model) {
+	public String adminpostForgotPassword(@RequestBody User user) {
 
 		String u;
-		u = service.findUser(username);
+		u = service.findUser(user.getUsername());
 
 		if (u == "false") {
-			model.addAttribute("error", "User Does Not Exists");
+//			model.addAttribute("error", "User Does Not Exists");
 			return "forgotpassword";
 		} else {
 
-			model.addAttribute("add", username);
-			return "redirect:/changepassword/" + username;
+//			model.addAttribute("add", username);
+			return "changepassword";
 		}
 	}
 
@@ -249,28 +250,28 @@ public class loginController {
 
 	}
 
-	@GetMapping("/index")
-	public String index() {
-		return "Index";
-	}
+//	@GetMapping("/index")
+//	public String index() {
+//		return "Index";
+//	}
 @GetMapping("/role")
 public List<Role> all(){
 
 	return roleService.findAll();
 }
 
-@GetMapping("/username/{id}")
-public User findUsername(@PathVariable int id){
-	
-	return service.getUsername(id);
-	
-}
-@GetMapping("/getuser/{id}")
-public User findUser(@PathVariable int id){
-	
-	return service.getuser(id);
-	
-}
+//@GetMapping("/username/{id}")
+//public User findUsername(@PathVariable int id){
+//	
+//	return service.getUsername(id);
+//	
+//}
+//@GetMapping("/getuser/{id}")
+//public User findUser(@PathVariable int id){
+//	
+//	return service.getuser(id);
+//	
+//}
 
 
 @PutMapping("/update/{id}")

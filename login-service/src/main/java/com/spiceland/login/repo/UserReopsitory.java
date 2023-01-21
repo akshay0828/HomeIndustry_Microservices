@@ -13,9 +13,11 @@ import com.spiceland.login.entity.User;
 @Repository
 public interface UserReopsitory extends JpaRepository<User, Integer> {
 
-	@Query("SELECT u FROM User u WHERE u.username = :username")
-	public User findByUsername(@Param("username") String username);
+//	@Query("SELECT u FROM User u WHERE u.username = :username")
+////	public User findByUsername(@Param("username") String username);
 
+	User findByUsername(String username);
+	
 	User findUsernameById(int id);
 
 	User findRolenameByUsername(String username);
