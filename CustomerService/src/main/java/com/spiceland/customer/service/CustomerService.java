@@ -24,5 +24,7 @@ public interface CustomerService {
 	List<Products> getProductDetailsWithSameProductName(String pName);
 
 	List<CartLine> getCartDetails(int customerId);
+	
+	List<User>  getUsers();
 
 }

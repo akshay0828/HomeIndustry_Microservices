@@ -9,7 +9,7 @@ import com.spiceland.customer.entity.Products;
 
 @Repository
 public interface ProductsRepo extends JpaRepository<Products, Integer>{
-
+	
 	List<Products> findByProductName(String pName);
 
 }

@@ -14,7 +14,7 @@ public class Orders {
 	private int id;// unique constraint of the Order .
 	private ArrayList<Integer> cartIds;// List of the id's of cartitems.
 	private String orderDate;// Date on which order is placed.
-	private int user_id;// user id ,who placed the order.
+	private int userId;// user id ,who placed the order.
 	private String area;
 	private ArrayList<Integer> adminIds;
 
@@ -28,7 +28,7 @@ public class Orders {
 		this.id = id;
 		this.cartIds = cartIds;
 		this.orderDate = orderDate;
-		this.user_id = user_id;
+		this.userId = user_id;
 		this.adminIds = adminIds;
 		this.area = area;
 	}
@@ -37,7 +37,7 @@ public class Orders {
 		super();
 		this.cartIds = cartIds;
 		this.orderDate = orderDate;
-		this.user_id = user_id;
+		this.userId = user_id;
 		this.adminIds = adminIds;
 		this.area = area;
 	}
@@ -67,12 +67,12 @@ public class Orders {
 		this.orderDate = orderDate;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int user_id) {
+		this.userId = user_id;
 	}
 
 	public ArrayList<Integer> getAdminIds() {
@@ -93,7 +93,7 @@ public class Orders {
 
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", cartIds=" + cartIds + ", date=" + orderDate + ", user_id=" + user_id + ", area="
+		return "Orders [id=" + id + ", cartIds=" + cartIds + ", date=" + orderDate + ", user_id=" + userId + ", area="
 				+ area + ", adminIds=" + adminIds + "]";
 	}
 

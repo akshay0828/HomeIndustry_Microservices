@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +23,8 @@ import com.spiceland.customer.entity.User;
 import com.spiceland.customer.service.CustomerService;
 
 @RestController
+@CrossOrigin(origins ="http://localhost:3000")
+@RequestMapping("/api/customer")
 public class CustomerContoller {
 	
 	@Autowired
@@ -32,9 +36,23 @@ public class CustomerContoller {
 		return customerService.getUser(id);
 	}
 	
+	@GetMapping("/customerDetails")
+	public List<User> customerDetails(){
+		return customerService.getUsers();
+	}
+	
+//	@GetMapping("/getProducts")
+//	public List<Products> getProducts(){
+//		
+//	return customerService.getproducts();
+//		
+//	}
+	
 	@GetMapping("/getProducts")
 	public List<Products> getProducts(){
-		return customerService.getproducts();
+		
+    	return customerService.getproducts();
+		
 	}
 
 	
@@ -87,13 +105,19 @@ public class CustomerContoller {
 	
 	
 	@PutMapping("/UpdateCustomer/{id}")
-	public String customerUpdated(@RequestBody User user,@PathVariable("id") int id, Model model) {
-		
-		model.addAttribute("user", customerService.getUser(id));
-		model.addAttribute("id", id);
-		customerService.updateUser(user);
-		return "redirect:/CustomerHome"+id;
-	}
+//	public String customerUpdated(@RequestBody User user,@PathVariable("id") int id, Model model) {
+//		
+//		model.addAttribute("user", customerService.getUser(id));
+//		model.addAttribute("id", id);
+//		customerService.updateUser(user);
+//		return "redirect:/CustomerHome"+id;
+//	}
+	public void deliveryDataPerson(@RequestBody User user, @PathVariable("id") int id, Model model) {
+
+		 
+
+        customerService.updateUser(user);
+    }
 	
 	
 	@GetMapping("/PreviousOrders/{id}")
