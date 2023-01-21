@@ -1,33 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import './Orders.css';
+import { useHistory } from 'react-router-dom';
 
-function Orders() {
-    const [orders, setOrders] = useState([]);
+function OrdersComponent({ orders }) {
 
-    useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const response = await axios.get("http://localhost:9004/api/delivery/getAllOrders/625");
-                setOrders(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchOrders();
-    }, []); // the empty dependency array makes the effect only run on first render
+  // let history = useHistory();
 
-    return (
-        <div>
-            {orders.map((order, index) => (
-                <div key={index}>
-                    <p>Order ID: {order.id}</p>
-                    <p>Customer Name: {order.customerName}</p>
-                    <p>Order Date: {order.orderDate}</p>
-                </div>
-            ))}
+  // const handleClick = () => {
+  //   history.push("/orderDetails/1/2");
+  // }
+
+  return (
+    <div className='orders'>
+      {orders.map((order, index) => (
+        <div key={index}>
+          <p className='space'>Order - {order.id}</p>
+          <p className='space'>User Id -{order.user_id}</p>
+          <p className='space'>Area -{order.area}</p>
+          <button   className='space_btn'>Accept Order</button>
         </div>
-    );
+      ))}
+    </div>
+  );
 }
 
-export default Orders;
+export default OrdersComponent;

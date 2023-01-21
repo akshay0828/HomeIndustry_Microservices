@@ -5,6 +5,10 @@ import './EditProfile.css';
 import NavBar from './NavBar';
 import isMounted from 'react';
 import setIsMounted from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+
+
 
 function EditProfile() {
     const [name, setName] = useState('');
@@ -14,25 +18,39 @@ function EditProfile() {
     const [area, setArea] = useState('');
     const [contact, setContact] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Code to handle submitting the form, such as making an API call to update the user's profile information
-        console.log(name, email, username, address, area, contact);
+        try {
+            const res = await axios.put(`http://localhost:9004/api/delivery/UpdateDeliveryPerson/625`, {
+                id: 625,
+                name: name,
+                email: email,
+                username: username,
+                address: address,
+                area: area,
+                contact: contact
+            });
+            
+            alert("Profile updated successfully");
+            
+        } catch (err) {
+            console.error(err);
+            alert("Error updating profile. Please try again later.");
+        }
     }
     const [users,setUsers]=useState(false);
   useEffect( () => {
     if(!users) {
         setUsers(true);
-        // call the api here
         loadUsers();
     }
    
   });
   const loadUsers=async () => {
-    const result=await axios.get("http://localhost:9004/api/delivery/getUserData/1");
+    const result=await axios.get("http://localhost:9004/api/delivery/getUserData/625");
                                    
     setUsers(result.data);
-    console.log(result.data);
+    // console.log(result.data);
   }
   const handleReset = () => {
     setName('');
@@ -63,7 +81,7 @@ function EditProfile() {
             <br />
             <label>
                 Username:
-                <input type="text" defaultValue={users.username} onChange={e => setUsername(e.target.value)} />
+                <input type="text" value={users.username} onChange={e => setUsername(e.target.value)} />
             </label>
             <br />
             <label>
@@ -81,7 +99,9 @@ function EditProfile() {
                 <input type="text" defaultValue={users.contact} onChange={e => setContact(e.target.value)} />
             </label>
             <br />
-            <button type="submit">Save</button>
+            
+            <button type="submit" className='btn btn-primary'>Save</button>
+            
             
         </form>
         </div>

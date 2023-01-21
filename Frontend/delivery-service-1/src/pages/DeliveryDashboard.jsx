@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import './DeliveryDashboard.css';
 import LogoutButton from './LogOut';
+import ExampleComponent from './SelectArea';
 
 function Dashboard() {
     
