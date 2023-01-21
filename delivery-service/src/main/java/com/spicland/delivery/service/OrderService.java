@@ -10,6 +10,8 @@ public interface OrderService {
 	void saveOrder(Orders orders);
 
 	List<Orders> findAll();
+	
+	List<Orders> findAllByArea();
 
 	boolean existsById(Integer id);
 
