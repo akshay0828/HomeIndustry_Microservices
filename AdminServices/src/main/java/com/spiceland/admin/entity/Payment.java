@@ -6,10 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="payments")
+
 public class Payment {
 	
 	@Id
@@ -26,7 +28,13 @@ public class Payment {
 	
 	private String cardNo;
 	
+//	private Orders orders;
+	
 	private String paymentType;
+	
+	 @OneToOne(targetEntity=Orders.class)
+	 @JoinColumn(name="orders_id",referencedColumnName="id")
+	private Orders orders;
 
 	public Payment() {
 		super();
@@ -38,7 +46,7 @@ public class Payment {
 		super();
 		this.id = id;
 		this.tranzactinId = tranzactinId;
-//		this.orders = orders;
+		this.orders = orders;
 		this.paymentMethod = paymentMethod;
 		this.totalAmount = totalAmount;
 		this.cardNo = cardNo;
@@ -49,7 +57,7 @@ public class Payment {
 			String paymentType) {
 		super();
 		this.tranzactinId = tranzactinId;
-//		this.orders = orders;
+		this.orders = orders;
 		this.paymentMethod = paymentMethod;
 		this.totalAmount = totalAmount;
 		this.cardNo = cardNo;
@@ -72,13 +80,13 @@ public class Payment {
 		this.tranzactinId = tranzactinId;
 	}
 
-//	public Orders getOrders() {
-//		return orders;
-//	}
-//
-//	public void setOrders(Orders orders) {
-//		this.orders = orders;
-//	}
+	public Orders getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Orders orders) {
+		this.orders = orders;
+	}
 
 	public String getPaymentMethod() {
 		return paymentMethod;
@@ -104,6 +112,8 @@ public class Payment {
 		this.cardNo = cardNo;
 	}
 
+	
+
 	public String getPaymentType() {
 		return paymentType;
 	}
@@ -112,7 +122,18 @@ public class Payment {
 		this.paymentType = paymentType;
 	}
 
-	
+//	@Override
+//	public String toString() {
+//		return "Payment [id=" + id + ", tranzactinId=" + tranzactinId + ", paymentMethod=" + paymentMethod
+//				+ ", totalAmount=" + totalAmount + ", cardNo=" + cardNo + ", paymentType=" + paymentType + "]";
+//	}
+
+	@Override
+	public String toString() {
+		return "Payment [id=" + id + ", tranzactinId=" + tranzactinId + ", paymentMethod=" + paymentMethod
+				+ ", totalAmount=" + totalAmount + ", cardNo=" + cardNo + ", paymentType=" + paymentType + ", orders="
+				+ orders + "]";
+	}
 	
 	
 	
