@@ -18,8 +18,6 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	List<Orders> findByArea(String area);
 	//List<Orders> findAllByArea(String area);
 	
-	
-	
 	 
 	 
 }

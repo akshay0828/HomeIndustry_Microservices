@@ -16,31 +16,58 @@ public class Orders {
 	private String orderDate;// Date on which order is placed.
 	private int user_id;// user id ,who placed the order.
 	private String area;
+	private String status="Waiting For Delivery Person To Accept Order";
 	private ArrayList<Integer> adminIds;
 
 	public Orders() {
 		super();
 	}
 
-	public Orders(int id, ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds,
-			String area) {
+
+
+	public Orders(int id, ArrayList<Integer> cartIds, String orderDate, int user_id, String area, String status,
+			 ArrayList<Integer> adminIds) {
 		super();
 		this.id = id;
 		this.cartIds = cartIds;
 		this.orderDate = orderDate;
 		this.user_id = user_id;
-		this.adminIds = adminIds;
 		this.area = area;
+		this.status = status;
+		this.adminIds = adminIds;
 	}
 
-	public Orders(ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds, String area) {
+
+
+	
+
+
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+	public Orders(ArrayList<Integer> cartIds, String orderDate, int user_id, String area, String status,
+			ArrayList<Integer> adminIds) {
 		super();
 		this.cartIds = cartIds;
 		this.orderDate = orderDate;
 		this.user_id = user_id;
-		this.adminIds = adminIds;
 		this.area = area;
+		this.status = status;
+		this.adminIds = adminIds;
 	}
+
+
 
 	// Getters and Setters
 	public int getId() {
@@ -91,10 +118,14 @@ public class Orders {
 		this.area = area;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", cartIds=" + cartIds + ", date=" + orderDate + ", user_id=" + user_id + ", area="
-				+ area + ", adminIds=" + adminIds + "]";
+		return "Orders [id=" + id + ", cartIds=" + cartIds + ", orderDate=" + orderDate + ", user_id=" + user_id
+				+ ", area=" + area + ", status=" + status + ", adminIds=" + adminIds + "]";
 	}
+
+	
 
 }

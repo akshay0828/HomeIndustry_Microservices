@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spicland.delivery.entity.Orders;
@@ -92,10 +92,20 @@ public class DeliveryController {
 		String vendor_add=vendor.getAddress();
 		String cust_add=customer.getAddress();
 		ArrayList<String> address = new ArrayList<>();
-		address.add(vendor_add);
-		address.add(cust_add);
+		address.add("This is Vendor-Address  "+vendor_add+" From Where You have to collect the products "+"And this is his Contact Number");
+		address.add("Vendor-Contact  "+vendor.getContact()+"                                      ");
+		address.add("This is Customer-Address "+cust_add+" Where You Have To Deliver the Order And this is his Contact Number");
+		
+		address.add("Customer-Contact  "+customer.getContact());
 		System.out.println(address);
 		return address;
+	}
+	
+	@PutMapping("/updateStatus/{id}")
+	public void updateStatus(@PathVariable("id") int id,@RequestBody Orders order) {
+		order.setId(id);
+		orderService.updateStatus(order);
+		
 	}
 
 	@GetMapping("/acceptorder/{id}/{userid}")
