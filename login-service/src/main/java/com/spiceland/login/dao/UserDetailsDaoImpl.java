@@ -28,7 +28,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 	public void updateUserDao(String name, String email, String contact,  String area, 
 			String address, int id) {
 		logger.info("Updating User with id" + id);
-		String sql = "update users set name = ? ,email= ?, contact=?, street= ?, area= ?, city=?, pincode=? where id = ?";
+		String sql = "update users set name = ? ,email= ?, contact=?, address= ?, area= ? where id = ?";
 
 		jdbcTemplate.update(sql, name, email, contact,  area,  address, id);
 		logger.debug("User updated with id=" + id);

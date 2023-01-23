@@ -54,7 +54,7 @@ public interface UserDetailsService {
 
 	// To update the details of the user.
 
-	void updateUser(User user);
+	void updateUser(User user, int id);
 	
 
 }

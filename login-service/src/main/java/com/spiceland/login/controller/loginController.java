@@ -7,16 +7,13 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spiceland.login.config.WebSecurityConfig;
@@ -25,7 +22,6 @@ import com.spiceland.login.entity.User;
 import com.spiceland.login.model.RegisterUserModel;
 import com.spiceland.login.service.RoleService;
 import com.spiceland.login.service.UserDetailsService;
-
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -42,8 +38,6 @@ public class loginController {
 
 	@Autowired
 	private RoleService roleService;
-	
-	
 
 	private static final Logger logger = LoggerFactory.getLogger(loginController.class);
 
@@ -65,28 +59,26 @@ public class loginController {
 
 		if (u == "false") {
 			logger.debug("Existence in database is false for " + u);
-			 User user = new User(uid, registerUserModel.getName(), registerUserModel.getEmail(),
-                     registerUserModel.getUsername(),
-                     webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
-                    registerUserModel.getArea(), registerUserModel.getAddress(),
-                     registerUserModel.getContact(), true, registerUserModel.getRole(), null, null);
-				Role role1 = roleService.getbyName(user.getRole());
-				
-				Set<Role> roles = new HashSet<Role>();
-				roles.add(role1);
-				
-				user.setRoles(roles);
-				logger.debug("Creating the user with details " + user);
-				service.createUser(user);
-//				MyUserDetails use = new MyUserDetails(user);
-				return "success";
+			User user = new User(registerUserModel.getName(), registerUserModel.getEmail(),
+					registerUserModel.getUsername(),
+					webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
+					registerUserModel.getArea(), registerUserModel.getAddress(), registerUserModel.getContact(),
+					registerUserModel.getRole());
+			Role role1 = roleService.getbyName(user.getRole());
 
-			}
-		
+			Set<Role> roles = new HashSet<Role>();
+			roles.add(role1);
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>" + roles);
+			user.setRoles(roles);
+			logger.debug("Creating the user with details " + user);
+			service.createUser(user);
+			// MyUserDetails use = new MyUserDetails(user);
+			return "success";
+
+		}
+
 		return "Username Already Exists";
 	}
-
-
 
 	/*
 	 * Seller/Admin should provide the username and password . If username and
@@ -96,16 +88,15 @@ public class loginController {
 	@PostMapping("/login")
 
 	public String loginUser(@RequestBody RegisterUserModel user) throws Exception {
-		String url;
 		String s1 = "VENDOR";
-		String s2 = "CUSTOMER";
+		String s2 = "USER";
 		String s3 = "DELIVERY";
-		System.out.println("=========="+user.getUsername());
+		System.out.println("==========" + user.getUsername());
 
 		String role1 = service.getrole(user.getUsername());
 		System.out.println(role1);
 		try {
-		
+
 			String role = service.getrole(user.getUsername());
 			System.out.println(role);
 			logger.debug("Logging with the role as " + role);
@@ -122,13 +113,14 @@ public class loginController {
 					uid = id;
 
 					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
-//					return url = "redirect:/admin/adminhome/" + id;
+					// return url = "redirect:/admin/adminhome/" + id;
 					return "sucess";
 				}
 
 				else {
 
-//					model.addAttribute("error", "Invalid Username and Password");
+					// model.addAttribute("error", "Invalid Username and
+					// Password");
 					return "Invalid Username and Password";
 
 				}
@@ -145,8 +137,8 @@ public class loginController {
 
 					int id = service.getId(user.getUsername());
 					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
-					
-//					return url = "redirect:/user/userhome/" + id;
+
+					// return url = "redirect:/user/userhome/" + id;
 					return "sucess";
 				}
 
@@ -167,7 +159,7 @@ public class loginController {
 
 					int id = service.getId(user.getUsername());
 					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
-//					return url = "redirect:/delivery/deliverhome/" + id;
+					// return url = "redirect:/delivery/deliverhome/" + id;
 					return "sucess";
 				}
 
@@ -193,7 +185,6 @@ public class loginController {
 	 * 
 	 */
 
-
 	/*
 	 * Seller/Admin should enter the username If the username exists it wil
 	 * navigate to changepassword page else it will display the error message
@@ -206,11 +197,11 @@ public class loginController {
 		u = service.findUser(user.getUsername());
 
 		if (u == "false") {
-//			model.addAttribute("error", "User Does Not Exists");
+			// model.addAttribute("error", "User Does Not Exists");
 			return "forgotpassword";
 		} else {
 
-//			model.addAttribute("add", username);
+			// model.addAttribute("add", username);
 			return "changepassword";
 		}
 	}
@@ -220,73 +211,57 @@ public class loginController {
 	 * changepassword page.
 	 */
 
-	@GetMapping("/changepassword/{username}")
-	public String adminchangePassword(@PathVariable("username") String username, Model model) {
-		model.addAttribute("userna", username);
-
-		return "changepassword";
-	}
 	/*
 	 * Seller/admin can enter the new password If the password and confirm
 	 * password doesn't match it will again ask to enter the username and then
 	 * can change the password,password will change successfully.
 	 */
 
-	@PostMapping("/changepassword/{username}")
-	public String adminupdatechangePassword(@PathVariable("username") String username,
-			@RequestParam("pass") String password, @RequestParam("cnfmpass") String confirmPassword, Model model)
-			throws Exception {
-		if (password.equals(confirmPassword)) {
+	@PostMapping("/changepassword")
+	public String adminupdatechangePassword(@RequestBody User user) throws Exception {
 
-			service.forgotPassword(username, webSecurityConfig.passwordEncoder().encode(password));
-			return "redirect:/login";
-
-		} else {
-			model.addAttribute("me", "Password And ConfirmPassword Does Not match");
-			model.addAttribute("mes", "Re-Enter the Username");
-			return "forgotpassword";
-
-		}
+		service.forgotPassword(user.getUsername(), webSecurityConfig.passwordEncoder().encode(user.getPass()));
+		user.setPass(webSecurityConfig.passwordEncoder().encode(user.getPass()));
+		return "password changed";
 
 	}
 
-//	@GetMapping("/index")
-//	public String index() {
-//		return "Index";
-//	}
-@GetMapping("/role")
-public List<Role> all(){
+	@GetMapping("/role")
+	public List<Role> all() {
 
-	return roleService.findAll();
-}
+		return roleService.findAll();
+	}
 
-//@GetMapping("/username/{id}")
-//public User findUsername(@PathVariable int id){
-//	
-//	return service.getUsername(id);
-//	
-//}
-//@GetMapping("/getuser/{id}")
-//public User findUser(@PathVariable int id){
-//	
-//	return service.getuser(id);
-//	
-//}
+	@GetMapping("/username/{id}")
+	public User findUsername(@PathVariable int id) {
 
+		return service.getUsername(id);
 
-@PutMapping("/update/{id}")
-public void update(@PathVariable int id,@RequestBody User user){
-	
-	 service.updateUser(user);
-	
-}
+	}
 
-/*@PutMapping("/update/{id}")
-public void update(@PathVariable int id,@RequestBody String name,@RequestBody String email,@RequestBody  String contact,@RequestBody String street,@RequestBody String area ,@RequestBody String city,@RequestBody String pincode){
-	
-	 service.updateUser(name, email,contact,street,area, city, pincode, id);
-	
-}*/
+	@GetMapping("/getuser/{id}")
+	public User findUser(@PathVariable int id) {
 
+		return service.getuser(id);
+
+	}
+
+	@PutMapping("/update/{id}")
+	public void update(@PathVariable int id, @RequestBody User user) {
+
+		service.updateUser(user, id);
+
+	}
+
+	/*
+	 * @PutMapping("/update/{id}") public void update(@PathVariable int
+	 * id,@RequestBody String name,@RequestBody String email,@RequestBody String
+	 * contact,@RequestBody String street,@RequestBody String area ,@RequestBody
+	 * String city,@RequestBody String pincode){
+	 * 
+	 * service.updateUser(name, email,contact,street,area, city, pincode, id);
+	 * 
+	 * }
+	 */
 
 }

@@ -43,8 +43,8 @@ public class UserDetailsServiceImpl
 	
 	
 	@Override
-	public void updateUser(User user) {
-		userdao.updateUserDao(user.getName(), user.getEmail(), user.getContact(), user.getArea(), user.getAddress(), user.getId());
+	public void updateUser(User user,int id) {
+		userdao.updateUserDao(user.getName(), user.getEmail(), user.getContact(), user.getArea(), user.getAddress(),id);
 
 	} 	
 

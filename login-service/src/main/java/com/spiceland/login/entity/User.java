@@ -99,6 +99,23 @@ public class User {
 		this.products = products;
 	}
 
+	
+	public User(String name, String email, String username, String pass, String address, String area, 
+			 String contact, String role) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.username = username;
+		this.pass = pass;
+
+		this.address = address;
+		this.area = area;
+		
+		this.contact = contact;
+		this.enabled = true;
+		this.role = role;
+	}
+	
 
 
 
