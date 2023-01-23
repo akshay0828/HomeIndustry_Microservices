@@ -16,12 +16,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-//	public List<User> findAllVendor(){
-//		String sql="SELECT * FROM USERS where ROLE= 'VENDOR' AND ENABLED='FALSE' ";
-//		List<User> users =jdbcTemplate.query(sql,new BeanPropertyRowMapper<User>(User.class) );
-//		return users;
-//		
-//	}
+
 	
 	
 	@Override
@@ -30,11 +25,15 @@ public class AdminDAOImpl implements AdminDAO {
 		List<Payment> payment =jdbcTemplate.query(sql, new BeanPropertyRowMapper(Payment.class) );
 		return  payment;
 	}
+	
+	
+	
 	@Override
-	public void updateUser(User user){
+	public void updateUser(int id){
 		String sql="UPDATE USERS SET enabled=? WHERE ID=?";
-		jdbcTemplate.update(sql, "TRUE",user.getId());
+		jdbcTemplate.update(sql, true ,id);
 		
 	}
 
+	
 }

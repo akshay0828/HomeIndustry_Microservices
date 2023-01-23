@@ -10,5 +10,7 @@ public interface AdminDAO {
 
 	 List<Payment> findAllPayment();
 
-	void updateUser(User user);
+	
+
+	void updateUser(int id);
 }

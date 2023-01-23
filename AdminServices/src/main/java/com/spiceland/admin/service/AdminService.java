@@ -15,6 +15,12 @@ public interface AdminService {
 
 	User enable(String role);
 
+	void deleteUser(int id);
+
+	void updateUser(int id);
+
+
+
 
 
 

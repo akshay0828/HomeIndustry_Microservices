@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,17 +52,19 @@ public class AdminController {
 	}
 	
 	
-	@PostMapping("/approval")
-	public String enableUser(@RequestBody User u){
-//		u.setEnabled(true);
-		System.out.println(u);
-		adminDAO.updateUser(u);
+	@PostMapping("/approval/{id}")
+	public String enableUser(@PathVariable("id")int id){
+
+		System.out.println(id);
+		adminService.updateUser(id);
 		return "Approved";
 	}
 	
-	@PutMapping("/dissapproval")
-	public String dissableUser(@RequestBody User u){
-		u.setEnabled(false);
+	@DeleteMapping("/dissapproval/{id}")
+	public String dissableUser(@PathVariable("id")int id){
+//		u.setEnabled(false);
+		System.out.println("kk");
+		adminService.deleteUser(id);
 		return "DissApproved";
 	}
 

@@ -43,8 +43,8 @@ public class UserDetailsServiceImpl
 	
 	
 	@Override
-	public void updateUser(User user) {
-		userdao.updateUserDao(user.getName(), user.getEmail(), user.getContact(), user.getArea(), user.getAddress(), user.getId());
+	public void updateUser(User user,int id) {
+		userdao.updateUserDao(user.getName(), user.getEmail(), user.getContact(), user.getArea(), user.getAddress(),id);
 
 	} 	
 
@@ -87,8 +87,9 @@ public class UserDetailsServiceImpl
 	// To get the roles of the user(admin,user,delivery person).
 	@Override
 	public String getrole(String username) {
-		logger.info("Fetching the role through username");
+		logger.info("Fetching the role through username"+username);
 		User u = userRepository.findByUsername(username);
+		System.out.println(u);
 		logger.debug("The role of " + username + "is" + u.getRole());
 		return u.getRole();
 	}

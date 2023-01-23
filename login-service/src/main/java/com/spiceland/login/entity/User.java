@@ -40,11 +40,15 @@ public class User {
 
 	private Set<Role> roles = new HashSet<Role>();
 
-	@OneToMany(targetEntity = Products.class, cascade = { CascadeType.MERGE,
-			CascadeType.PERSIST }, fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToMany(targetEntity = Products.class, cascade =  CascadeType.MERGE , mappedBy = "user")
 	private Set<Products> products;
 
 	
+	public User() {
+		super();
+	}
+
+
 	public User(String name, String email, String username, String pass,  String area, String address,
 			String contact, boolean enabled, String role, Set<Role> roles, Set<Products> products) {
 		super();
@@ -95,6 +99,23 @@ public class User {
 		this.products = products;
 	}
 
+	
+	public User(String name, String email, String username, String pass, String address, String area, 
+			 String contact, String role) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.username = username;
+		this.pass = pass;
+
+		this.address = address;
+		this.area = area;
+		
+		this.contact = contact;
+		this.enabled = true;
+		this.role = role;
+	}
+	
 
 
 
