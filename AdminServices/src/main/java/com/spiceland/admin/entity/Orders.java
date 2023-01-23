@@ -4,14 +4,17 @@ package com.spiceland.admin.entity;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="orders")
+
 public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,6 +24,10 @@ public class Orders {
 	private int user_id;// user id ,who placed the order.
 	private String area;
 	private ArrayList<Integer> adminIds;
+	
+	@OneToOne(targetEntity=Payment.class,cascade={CascadeType.MERGE},mappedBy="orders")
+	 private Payment payment;
+
 
 	public Orders() {
 		super();

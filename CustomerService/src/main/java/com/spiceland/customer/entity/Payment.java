@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Payment {
@@ -16,7 +18,9 @@ public class Payment {
 	
 	private String tranzactinId;
 	
-	private Orders orders;
+	@OneToOne(targetEntity=Orders.class)
+    @JoinColumn(name="orders_id",referencedColumnName="id")
+   private Orders orders;
 	
 	private String paymentMethod;
 	

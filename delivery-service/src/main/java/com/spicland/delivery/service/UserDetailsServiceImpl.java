@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spicland.delivery.dao.UserDetailsDao;
+import com.spicland.delivery.entity.Products;
 import com.spicland.delivery.entity.User;
 import com.spicland.delivery.repo.UserReopsitory;
+import com.spicland.delivery.repo.productsRepo;
 
 @Service
 public class UserDetailsServiceImpl
@@ -17,6 +19,9 @@ public class UserDetailsServiceImpl
 
 	@Autowired
 	private UserReopsitory userRepository;
+	
+	@Autowired
+	private productsRepo repo;
 
 	@Autowired
 	private UserDetailsDao userdao;
@@ -70,6 +75,12 @@ public class UserDetailsServiceImpl
 		logger.debug("Users are " + users);
 		return users;
 
+	}
+
+	@Override
+	public List<Products> findAllProducts() {
+		
+		return repo.findAll();
 	}
 
 

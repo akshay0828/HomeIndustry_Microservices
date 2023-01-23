@@ -10,6 +10,6 @@ import com.spiceland.customer.entity.Orders;
 @Repository
 public interface OrdersRepo extends JpaRepository<Orders, Integer> {
 	
-	List<Orders> findByUser_id(int id);
+	List<Orders> findByUserId(int id);
 
 }

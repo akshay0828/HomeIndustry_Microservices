@@ -2,6 +2,7 @@ package com.spicland.delivery.service;
 
 import java.util.List;
 
+import com.spicland.delivery.entity.Products;
 import com.spicland.delivery.entity.User;
 
 public interface UserDetailsService {
@@ -25,6 +26,7 @@ public interface UserDetailsService {
 	
 	User getUsername(int id);
 
+	List<Products> findAllProducts();
 
 
 }

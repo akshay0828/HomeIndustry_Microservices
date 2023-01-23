@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="cartline")
+
 public class CartLine {
 
 	@Id

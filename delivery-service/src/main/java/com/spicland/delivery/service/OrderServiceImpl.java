@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.spicland.delivery.entity.Orders;
 import com.spicland.delivery.repo.OrderRepository;
+import com.sun.xml.internal.stream.Entity;
 
 
 @Service
@@ -33,6 +34,11 @@ public class OrderServiceImpl implements OrderService {
 		logger.info("Fetching all list of orders");
 		return orderRepository.findAll();
 	}
+	public List<Orders> findAllByArea() {
+        return orderRepository.findAll();
+    }
+	
+	
 
 	// Finding whether the order is their or not.
 	@Override

@@ -41,8 +41,8 @@ public class User {
 
 	private Set<Role> roles = new HashSet<Role>();
 
-	@OneToMany(targetEntity = Products.class, cascade = { CascadeType.MERGE,
-			CascadeType.PERSIST }, fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToMany(targetEntity = Products.class, cascade = { CascadeType.MERGE
+			 }, mappedBy = "user")
 	private Set<Products> products;
 
 	/*

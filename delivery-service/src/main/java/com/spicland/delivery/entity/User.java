@@ -50,13 +50,13 @@ public class User {
 	 * roles = new ArrayList<>(); }
 	 */
 
-	public Set<Products> getProducts() {
+	/*public Set<Products> getProducts() {
 		return products;
 	}
 
 	public void setProducts(Set<Products> products) {
 		this.products = products;
-	}
+	}*/
 
 	public User() {
 		super();
