@@ -10,9 +10,11 @@ import com.spiceland.admin.entity.User;
 @Repository
 public interface UserRepo extends JpaRepository<User, Integer> {
 	
-	List<User> findAllByRole(String role);
+	List<User> findAllByRoleAndEnabledFalse(String role);
 	
 	User findByRole(String role);
+	
+	
 	
 
 }
