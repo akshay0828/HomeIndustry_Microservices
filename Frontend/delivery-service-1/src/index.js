@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     element: <SelectArea />,
   },
   {
-    path: "/orderDetails/:custId/:vendorId" ,
+    path: "/orderDetails" ,
     element: <OrderDetails />,
   },
 ]);

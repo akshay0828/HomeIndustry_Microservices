@@ -20,15 +20,17 @@ function EditProfile() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+       const dd= document.getElementById('name').value;   
+       alert(dd);
         try {
             const res = await axios.put(`http://localhost:9004/api/delivery/UpdateDeliveryPerson/625`, {
                 id: 625,
-                name: name,
-                email: email,
-                username: username,
-                address: address,
-                area: area,
-                contact: contact
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                username: document.getElementById('name').value,
+                address: document.getElementById('address').value,
+                area: document.getElementById('area').value,
+                contact:document.getElementById('contact').value
             });
             
             alert("Profile updated successfully");
@@ -71,36 +73,37 @@ function EditProfile() {
         <form onSubmit={handleSubmit} className="edit-profile">
             <label>
                 Name:
-                <input type="text" defaultValue={users.name} onChange={e => setName(e.target.value)} />
+                <input type="text" id= "name" defaultValue={users.name}  />
             </label>
             <br />
             <label>
                 Email:
-                <input type="email" defaultValue={users.email} onChange={e => setEmail(e.target.value)} />
+                <input type="email" id= "email" defaultValue={users.email}  />
             </label>
             <br />
             <label>
                 Username:
-                <input type="text" value={users.username} onChange={e => setUsername(e.target.value)} />
+                <input type="text"  value={users.username} onChange={e => setUsername(e.target.value)} />
             </label>
             <br />
             <label>
                 Address:
-                <textarea defaultValue={users.address} onChange={e => setAddress(e.target.value)} />
+                <textarea defaultValue={users.address} id="address" />
             </label>
             <br />
             <label>
                 Area:
-                <input type="text" defaultValue={users.area} onChange={e => setArea(e.target.value)} />
+                <input type="text" defaultValue={users.area} id="area" />
             </label>
             <br />
             <label>
                 Contact:
-                <input type="text" defaultValue={users.contact} onChange={e => setContact(e.target.value)} />
+                <input type="text" defaultValue={users.contact} id="contact" />
             </label>
             <br />
             
             <button type="submit" className='btn btn-primary'>Save</button>
+            
             
             
         </form>

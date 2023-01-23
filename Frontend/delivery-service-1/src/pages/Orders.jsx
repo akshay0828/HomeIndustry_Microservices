@@ -1,14 +1,22 @@
 import React from 'react';
 import './Orders.css';
-import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 
 function OrdersComponent({ orders }) {
 
-  // let history = useHistory();
-
-  // const handleClick = () => {
-  //   history.push("/orderDetails/1/2");
-  // }
+ 
+  function handleClick() {
+    axios.put('http://localhost:9004/api/delivery/updateStatus/3', {
+      status: 'ACCEPTE'
+    })
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
 
   return (
     <div className='orders'>
@@ -17,7 +25,8 @@ function OrdersComponent({ orders }) {
           <p className='space'>Order - {order.id}</p>
           <p className='space'>User Id -{order.user_id}</p>
           <p className='space'>Area -{order.area}</p>
-          <button   className='space_btn'>Accept Order</button>
+          <Link to={'/orderDetails'}>
+          <button onClick={handleClick} className='space_btn'>Accept Order</button></Link>
         </div>
       ))}
     </div>

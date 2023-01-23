@@ -115,7 +115,7 @@ function SelectArea() {
           <option key={index} value={option}>{option}</option>
         ))}
       </select>
-      <button type="submit">View Orders</button>
+      <button type="submit" >Get Orders</button>
       {isLoading ? <p>Loading...</p> : <OrdersComponent orders={orders} />}
     </form>
     </div>
