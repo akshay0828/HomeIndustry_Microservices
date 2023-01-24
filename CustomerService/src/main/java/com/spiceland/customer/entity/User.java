@@ -52,7 +52,7 @@ public class User {
 	 */
 
 	public Set<Products> getProducts() {
-		return products;
+		return null;
 	}
 
 	public void setProducts(Set<Products> products) {

@@ -143,8 +143,10 @@ public class CustomerContoller {
 	}
 	
 	
-	@PostMapping("/AddToCart/{id}/{productId}")
-	public String addItemToCart(@PathVariable("id") int id,@PathVariable("productId") int productId,Model model) {
+	@PostMapping("/AddToCart/{id}/{productId}/{Qauntity}")
+	public String addItemToCart(@PathVariable("id") int id,@PathVariable("productId") int productId,@PathVariable("Qauntity") int qauntity) {
+		
+		customerService.addToCart(id,productId,qauntity);
 		return "af";
 	}
 	
@@ -154,6 +156,8 @@ public class CustomerContoller {
 		model.addAttribute("cart", customerService.getCartDetails(customerId));
 		return customerService.getCartDetails(customerId);
 	}
+	
+	
 	
 	
 	

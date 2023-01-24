@@ -19,4 +19,12 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
+	@Override
+	public void updateQauntity(int qauntity,double price, int id) {
+		String sql = "UPDATE CART_LINE SET QUANTITY=?,PRICE=? WHERE ID=?";
+		System.out.println("dao    ");
+		jdbcTemplate.update(sql, qauntity,price, id);
+		
+	}
+
 }

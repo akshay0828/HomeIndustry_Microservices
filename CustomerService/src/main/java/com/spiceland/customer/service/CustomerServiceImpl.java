@@ -115,4 +115,39 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<User> getUsers() {
 		return userRepo.findAll();
 	}
+	
+	
+
+	@Override
+	public void addToCart(int id, int productId, int qauntity) {
+		Products product=productsRepo.findById(productId);
+		CartLine cartItem=new CartLine();
+		int qaunt,i=0,cartId;
+		double price;
+		List<CartLine> allCart=cartLineRepo.findAll();
+		for (CartLine cartLine : allCart) {
+			i=0;
+			System.out.println("for   "+cartLine);
+			if((cartLine.getUserid()==id)&& (cartLine.getProdid()==productId)) {
+				qaunt=qauntity+cartLine.getQuantity();
+				price=qaunt*product.getPrice();
+				cartId=cartLine.getId();
+				System.out.println("if    ");
+				i=1;
+				userdao.updateQauntity(qaunt,price,cartId);
+				break;
+			}
+			else {
+				cartItem=new CartLine(productId, product.getProductName(), product.getPrice()*qauntity,qauntity,product.getUser().getId(), id);
+//				break;
+			}
+		}
+			if(i==0) {
+				
+			
+			cartLineRepo.save(cartItem);
+		}
+		
+		
+	}
 }

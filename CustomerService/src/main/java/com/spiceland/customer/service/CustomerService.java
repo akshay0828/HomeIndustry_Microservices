@@ -27,4 +27,6 @@ public interface CustomerService {
 	
 	List<User>  getUsers();
 
+	void addToCart(int id, int productId, int qauntity);
+
 }

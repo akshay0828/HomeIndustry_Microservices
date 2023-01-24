@@ -42,17 +42,21 @@ public class CartLine {
 		this.price = price;
 
 	}
+	
 
-	public CartLine(int prodid, String productName, double price, int adminIds, int userid) {
+	public CartLine(int prodid, String productName, double price, int quantity, int adminIds, int userid) {
 		super();
 		this.prodid = prodid;
 		this.productName = productName;
 		this.price = price;
-		this.userid = userid;
+		this.quantity = quantity;
 		this.adminIds = adminIds;
+		this.userid = userid;
 	}
+	
+	
 
-	public CartLine(int id, int prodid, String productName, double price, int quantity, int adminIds) {
+public CartLine(int id, int prodid, String productName, double price, int quantity, int adminIds, int userid) {
 		super();
 		this.id = id;
 		this.prodid = prodid;
@@ -60,7 +64,27 @@ public class CartLine {
 		this.price = price;
 		this.quantity = quantity;
 		this.adminIds = adminIds;
+		this.userid = userid;
 	}
+
+//	public CartLine(int prodid, String productName, double price, int adminIds, int userid) {
+//		super();
+//		this.prodid = prodid;
+//		this.productName = productName;
+//		this.price = price;
+//		this.userid = userid;
+//		this.adminIds = adminIds;
+//	}
+
+//	public CartLine(int id, int prodid, String productName, double price, int quantity, int adminIds) {
+//		super();
+//		this.id = id;
+//		this.prodid = prodid;
+//		this.productName = productName;
+//		this.price = price;
+//		this.quantity = quantity;
+//		this.adminIds = adminIds;
+//	}
 
 	public CartLine() {
 		super();

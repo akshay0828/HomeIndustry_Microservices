@@ -12,7 +12,7 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;// unique constraint of the Order .
-	private ArrayList<Integer> cartIds;// List of the id's of cartitems.
+	private ArrayList<String> cart;// List of the id's of cartitems.
 	private String orderDate;// Date on which order is placed.
 	private int userId;// user id ,who placed the order.
 	private String area;
@@ -22,20 +22,20 @@ public class Orders {
 		super();
 	}
 
-	public Orders(int id, ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds,
+	public Orders(int id, ArrayList<String> cart, String orderDate, int user_id, ArrayList<Integer> adminIds,
 			String area) {
 		super();
 		this.id = id;
-		this.cartIds = cartIds;
+		this.cart = cart;
 		this.orderDate = orderDate;
 		this.userId = user_id;
 		this.adminIds = adminIds;
 		this.area = area;
 	}
 
-	public Orders(ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds, String area) {
+	public Orders(ArrayList<String> cart, String orderDate, int user_id, ArrayList<Integer> adminIds, String area) {
 		super();
-		this.cartIds = cartIds;
+		this.cart = cart;
 		this.orderDate = orderDate;
 		this.userId = user_id;
 		this.adminIds = adminIds;
@@ -51,12 +51,12 @@ public class Orders {
 		this.id = id;
 	}
 
-	public ArrayList<Integer> getCartIds() {
-		return cartIds;
+	public ArrayList<String> getCartIds() {
+		return cart;
 	}
 
-	public void setCartIds(ArrayList<Integer> cartIds) {
-		this.cartIds = cartIds;
+	public void setCartIds(ArrayList<String> cart) {
+		this.cart = cart;
 	}
 
 	public String getDate() {
@@ -93,7 +93,7 @@ public class Orders {
 
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", cartIds=" + cartIds + ", date=" + orderDate + ", user_id=" + userId + ", area="
+		return "Orders [id=" + id + ", cartIds=" + cart + ", date=" + orderDate + ", user_id=" + userId + ", area="
 				+ area + ", adminIds=" + adminIds + "]";
 	}
 
