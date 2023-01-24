@@ -84,4 +84,15 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.updateOrderStatus(order);
 	}
 
+	@Override
+	public List<Orders> FindByStatus(String status) {
+		
+		return orderRepository.findByStatus(status);
+	}
+
+	@Override
+	public List<Orders> getOrdersByAreaAndStatus(String loc,String status) {
+		return orderDao.getOrdersByAreaAndStatus(loc,status);
+	}
+
 }
