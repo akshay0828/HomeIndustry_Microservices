@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spiceland.customer.entity.CartLine;
 import com.spiceland.customer.entity.Orders;
+import com.spiceland.customer.entity.Payment;
 import com.spiceland.customer.entity.Products;
 import com.spiceland.customer.entity.User;
 
@@ -26,5 +27,16 @@ public interface CustomerService {
 	List<CartLine> getCartDetails(int customerId);
 	
 	List<User>  getUsers();
+
+	void addToCart(int id, int productId, int qauntity);
+
+	void removeItemFromCart(int cartId);
+
+	void changeQaunity(int cartId, int qauntity);
+
+	void paymentSucces(int customerId, Payment payment);
+
+	List<Orders> getAllOrders();
+
 
 }
