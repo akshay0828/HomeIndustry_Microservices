@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Payment {
@@ -18,45 +16,48 @@ public class Payment {
 	
 	private String tranzactinId;
 	
-	@OneToOne(targetEntity=Orders.class)
-    @JoinColumn(name="orders_id",referencedColumnName="id")
-   private Orders orders;
-	
 	private String paymentMethod;
+
+	private String paymentType;
 	
 	private float totalAmount;
 	
 	private String cardNo;
 	
-	private String paymentType;
 
 	public Payment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Payment(int id, String tranzactinId, Orders orders, String paymentMethod, float totalAmount, String cardNo,
-			String paymentType) {
+	 	
+	
+
+	public Payment(String tranzactinId, String paymentMethod, float totalAmount, String cardNo, String paymentType) {
 		super();
-		this.id = id;
 		this.tranzactinId = tranzactinId;
-		this.orders = orders;
 		this.paymentMethod = paymentMethod;
 		this.totalAmount = totalAmount;
 		this.cardNo = cardNo;
 		this.paymentType = paymentType;
 	}
 
-	public Payment(String tranzactinId, Orders orders, String paymentMethod, float totalAmount, String cardNo,
+
+
+
+	public Payment(int id, String tranzactinId, String paymentMethod, float totalAmount, String cardNo,
 			String paymentType) {
 		super();
+		this.id = id;
 		this.tranzactinId = tranzactinId;
-		this.orders = orders;
 		this.paymentMethod = paymentMethod;
 		this.totalAmount = totalAmount;
 		this.cardNo = cardNo;
 		this.paymentType = paymentType;
 	}
+
+
+
 
 	public int getId() {
 		return id;
@@ -74,14 +75,7 @@ public class Payment {
 		this.tranzactinId = tranzactinId;
 	}
 
-	public Orders getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Orders orders) {
-		this.orders = orders;
-	}
-
+	
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}

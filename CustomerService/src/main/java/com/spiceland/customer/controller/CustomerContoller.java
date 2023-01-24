@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spiceland.customer.entity.CartLine;
 import com.spiceland.customer.entity.Orders;
+import com.spiceland.customer.entity.Payment;
 import com.spiceland.customer.entity.Products;
 import com.spiceland.customer.entity.User;
 import com.spiceland.customer.service.CustomerService;
@@ -57,61 +57,44 @@ public class CustomerContoller {
 
 	
 	
-	@GetMapping("/CustomerHome/{id}")
-	public String userhome(@PathVariable("id") final int id, final ModelMap model ,@RequestParam(value = "text", required = false) String search) {
-
-
-
-//		final User u = customerService.getUser(id);
-//		model.addAttribute("add", u.getName());
-//		model.addAttribute("user", u.getId());
-//		model.addAttribute("id", id);
+//	@GetMapping("/CustomerHome/{id}")
+//	public String userhome(@PathVariable("id") final int id, final ModelMap model ,@RequestParam(value = "text", required = false) String search) {
+//
+//
+//
+////		final User u = customerService.getUser(id);
+////		model.addAttribute("add", u.getName());
+////		model.addAttribute("user", u.getId());
+////		model.addAttribute("id", id);
+////		
 //		
-		
-		model.addAttribute("products", customerService.getproducts());
-		
-		if(search==null){
-			model.addAttribute("products", customerService.getproducts());
-//		model.addAttribute("Products", productservice.getAllProducts());
-		}
-		else if(customerService.searchForProduct(search).isEmpty()){
-			model.addAttribute("error", "The Product you have searched is not in List");
-		}
-		else{
-			model.addAttribute("Products", customerService.searchForProduct(search));
-		}
-//		model.addAttribute("users", service.getAlluser());
-
-		return "CustomerHome";
-	}
-	
+//		model.addAttribute("products", customerService.getproducts());
+//		
+//		if(search==null){
+//			model.addAttribute("products", customerService.getproducts());
+////		model.addAttribute("Products", productservice.getAllProducts());
+//		}
+//		else if(customerService.searchForProduct(search).isEmpty()){
+//			model.addAttribute("error", "The Product you have searched is not in List");
+//		}
+//		else{
+//			model.addAttribute("Products", customerService.searchForProduct(search));
+//		}
+////		model.addAttribute("users", service.getAlluser());
+//
+//		return "CustomerHome";
+//	}
+//	
 	
 	@GetMapping("/searchingProducts")
 	public List<Products> searchingProducts(@RequestParam(value = "text", required = false) String search){
 		return customerService.searchForProduct(search);
 	}
 	
-	/*
-	 * If Customer wants to update the profile Navigate to updateprofile
-	 * page.
-	 */
-//	@GetMapping("/UpdateCustomer/{id}")
-//	public String updateCustomer(@PathVariable("id") int id, Model model) {
-//		model.addAttribute("user",customerService.getUser(id));
-//		model.addAttribute("id", id);
-//		return "/updateCustomer";
-//	}
-	
+
 	
 	
 	@PutMapping("/UpdateCustomer/{id}")
-//	public String customerUpdated(@RequestBody User user,@PathVariable("id") int id, Model model) {
-//		
-//		model.addAttribute("user", customerService.getUser(id));
-//		model.addAttribute("id", id);
-//		customerService.updateUser(user);
-//		return "redirect:/CustomerHome"+id;
-//	}
 	public void deliveryDataPerson(@RequestBody User user, @PathVariable("id") int id, Model model) {
 
 		 
@@ -159,10 +142,29 @@ public class CustomerContoller {
 	
 	
 	
+	@PostMapping("/removeFromCart/{cartId}")
+	public String removeFromCart(@PathVariable("cartId") int cartId) {
+		customerService.removeItemFromCart(cartId);
+		return "delete";
+	}
 	
 	
+	@PostMapping("/changeQauntity/{cartId}/{qauntity}")
+	public String changeQaunity(@PathVariable("cartId") int cartId,@PathVariable("qauntity")int qauntity) {
+		customerService.changeQaunity(cartId,qauntity);
+		return "update";
+	}
 	
+	@PostMapping("/paymentSucces/{cId}")
+	public String paymentSucces(@PathVariable("cId")int customerId,@RequestBody Payment payment) {
+		customerService.paymentSucces(customerId,payment);
+		return "orderPlaced and payement successful";
+	}
 	
+	@GetMapping("/OrdersDetails")
+	public List<Orders> getOrders() {
+		return customerService.getAllOrders();
+	}
 	
 }
 
