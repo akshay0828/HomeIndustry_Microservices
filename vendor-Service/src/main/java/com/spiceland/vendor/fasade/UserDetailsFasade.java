@@ -34,8 +34,8 @@ public class UserDetailsFasade {
 		
 	}
 	
-	public User updateUser(User user){
-		restTemplate.put(PRODUCT_URL+"/update/"+user.getId(), user);
+	public User updateUser(User user,int id){
+		restTemplate.put(PRODUCT_URL+"/update/"+id, user);
 		
 		return getUsername(user.getId());
 	}

@@ -59,14 +59,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 
-	@PostMapping("/admin/adminhome/{id}")
-	public String adminhomepost(@PathVariable("id") int id) {
-
-		ModelAndView view = new ModelAndView("admin/adminhome");
-		// System.out.println(id);
-
-		return "admin/adminhome";
-	}
+	
 
 	/*
 	 * If seller/admin wants to add new products, It will navigate to the
@@ -87,7 +80,7 @@ public class AdminController {
 			@RequestParam(name = "price") double price,
 			@RequestParam(name = "weight") float weight,
 			@RequestParam(name = "productDescription") String productDescription,
-			@RequestParam(name = "quantity") int quantity, @PathVariable("id") int user_id, Model model)
+			@RequestParam(name = "quantity") int quantity, @PathVariable("id") int user_id)
 			throws Exception {
 
 		try {
@@ -125,7 +118,7 @@ public class AdminController {
 
 				logger.error(
 						"the product " + productName + " is already added to the list by the seller " + u1.getName());
-				model.addAttribute("perror", "Product is already added");
+				
 				flag = 0;
 				return "Product is already added";
 			}
@@ -150,7 +143,7 @@ public class AdminController {
 			// System.out.println("FILE ERROR");
 		}
 
-		return "redirect:/admin/adminhome/{id}";
+		return "Success";
 	}
 
 	/*
@@ -176,7 +169,7 @@ public class AdminController {
 	 * Seller/Admin can delete the existing product.
 	 */
 
-	@DeleteMapping("/deleteProduct/{id}/{userid}")
+	@PostMapping("/deleteProduct/{id}/{userid}")
 	public String DeleteProduct(Model model, @PathVariable("id") int id, @PathVariable("userid") int user_id) {
 
 		logger.info("Deleting the product");
@@ -184,7 +177,7 @@ public class AdminController {
 		p.setUser(null);
 		productservice.deleteProduct(id);
 		
-		return "redirect:/products/prolist/" + user_id;
+		return "Deleted";
 
 	}
 
@@ -193,8 +186,12 @@ public class AdminController {
 	 * Seller/Admin can Update the details of the existing products.
 	 */
 
-	@PutMapping("/updateProduct/{id}")
-	public String updateProduct(@PathVariable("id") int id, @RequestBody Products pro) throws Exception {
+	@PostMapping("/updateProduct/{id}")
+	public String updateProduct(@PathVariable("id") int id, @RequestParam(name = "productName") String productName,
+			@RequestParam(name = "price") double price,
+			@RequestParam(name = "weight") float weight,
+			@RequestParam(name = "productDescription") String productDescription,
+			@RequestParam(name = "quantity") int quantity) throws Exception {
 
 		Products products = productservice.getProduct(id);
 
@@ -202,6 +199,9 @@ public class AdminController {
 			logger.info("Updating the fields required for the existing product_id " + id);
 
 			logger.debug("Existing product details  " + productservice.getProduct(id));
+			
+			
+			Products pro = new Products(productName, price, weight, productDescription, quantity);
 
 			productservice.productUpdate(pro,id);
 			
@@ -219,14 +219,14 @@ public class AdminController {
 	 * Seller/Admin can Update the profile.
 	 */
 
-	@PutMapping("/admin/updateProfile/{id}")
+	@PutMapping("/updateProfile/{id}")
 	public String adminUpdateInsert(@PathVariable("id") int id, @RequestBody User user, Model model) {
 
 		logger.info("Updating the profile details of the seller " + id);
 
 		
 
-		fasade.updateUser(user);
+		fasade.updateUser(user,id);
 
 		logger.debug("Successful updation for the seller " + id);
 
@@ -250,11 +250,12 @@ public class AdminController {
 		return fasade.role();
 	}
 
-@PutMapping("/update/{id}")
-
-/*@RequestMapping(value = "/update/{id}", method =    RequestMethod.PUT, consumes= MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)*/
-public void update(@PathVariable int id, @RequestBody(required=false) User user){
-	fasade.updateUser(user);
+@PostMapping("/update/{id}")
+public void update(@PathVariable int id, @RequestParam("name") String name,@RequestParam("email") String email,@RequestParam("username") String username,@RequestParam("address") String address,@RequestParam("area")String area,@RequestParam("contact")String contact){
+	
+	User user =new User(name, email, username, area, address, contact);
+	
+	fasade.updateUser(user,id);
 }
 	
 }

@@ -99,6 +99,22 @@ public class Products {
 		this.user = user;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	public Products(String productName, double price, float weight, String productDescription, int quantity) {
+		super();
+		this.productName = productName;
+		this.price = price;
+		this.weight = weight;
+		this.productDescription = productDescription;
+		this.quantity = quantity;
+	}
+
 	// Getters and Setters of the variables.
 
 	public int getId() {

@@ -100,6 +100,17 @@ public class User {
 
 
 
+	public User(String name, String email, String username, String area, String address, String contact) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.username = username;
+		this.area = area;
+		this.address = address;
+		this.contact = contact;
+	}
+
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
