@@ -1,47 +1,78 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import {useSpring,animated} from 'react-spring';
-import Registration from './component/Registration';
-import Login from './component/Login';
+import './Admin.css'
+import './Customer.css'
+
 import Forgot from './component/Forgot';
+import Home from './component/Home';
+import Password from './component/Password';
+import AdminHomePage from './component/AdminHomePage';
+import Dashboard from './component/DeliveryDashboard';
+import Customer from './component/Customer';
+import VendorHomePage from './component/VendorHomePage';
+import AddProducts from './component/AddProducts';
+import ManageProducts from './component/ManageProducts';
+import UpdateProduct from './component/UpdateProducts';
+import UpdateProfile from './component/UpdateProfile';
+import { BrowserRouter as Router, Route,Routes } from "react-router-dom";
+import {Container, Row, Col} from 'react-bootstrap';
 
 
 
 function App() {
-  const [registerationFormStatus, setRegistrationFormStatus]= useState(false);
-  const loginProps=useSpring({
-  left:registerationFormStatus ? -1000:0
- })
 
- const registerProps=useSpring({
-  top:registerationFormStatus ? -300:5000
- })
-  
+  const marginTop={
 
-  function registerClicked(){
-    // alert('register clicked');
-    setRegistrationFormStatus(true)
-  }
-  function loginClicked(){
-    // alert('login clicked');
-    setRegistrationFormStatus(false)
-  }
+    marginTop:"20px"
+
+  };
+
   return (
-    <div  className="login-register-wrapper">
-      <div className='nav-buttons'>
-      <button onClick={loginClicked} id="loginBtn" >Login  &nbsp;&nbsp;</button>
-      <button onClick={registerClicked} id="registerBtn" >Register</button>
-      </div>
-      <div className='form-group'>
-         <animated.form action='' id='loginform' style={loginProps}> 
-          <Login /></animated.form> 
-         <animated.form action='' id='registerform' style={registerProps}><Registration /></animated.form> 
-      </div>
-    
-      <animated.div className='forgot-panel' style={loginProps}><Forgot />Forgot your password</animated.div>
-    </div>
+
+   
+
+      <Router>
+
+      
+
+      <Container>
+
+        <Row>
+
+         <Col lg={12} style={marginTop}>
+
+      <Routes>
+
+        <Route exact path ="/" element={<Home/>}></Route>
+        <Route exact path ="/forgotPass" element={<Forgot/>}></Route>
+        <Route exact path ="/changePass/:username" element={<Password />}></Route>
+        <Route exact path ="/admin/:id" element={<AdminHomePage />}></Route>
+        <Route exact path ="/delivery/:id" element={<Dashboard />}></Route>
+        <Route exact path ="/user/:id" element={<Customer />}></Route>
+        <Route exact path="/vendor/:id" element={<VendorHomePage />}/> 
+         <Route exact path="/addProducts/:id" element={< AddProducts />}/> 
+        <Route exact path="/manageProducts/:id" element={< ManageProducts />}/> 
+         <Route exact path="/updateProfile/:id" element={< UpdateProfile />}/> 
+        <Route exact path="/updateProduct/:id" element={< UpdateProduct />}/>
+      </Routes>
+
+       </Col>
+
+        </Row>
+
+      </Container>
+
+      </Router>
+
+   
+
+
+
   );
+
 }
+
+
 
 export default App;
 

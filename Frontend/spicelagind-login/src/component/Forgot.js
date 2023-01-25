@@ -1,6 +1,11 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+
 import axios from "axios";
+
+import { useNavigate } from "react-router-dom";
+import './Home.css';
+
+
 
 class Forgot extends React.Component{
 
@@ -13,8 +18,10 @@ class Forgot extends React.Component{
     initiaLSTATE={
         username:""
     };
-    handlesubmit=(event)=>{
-    
+     handlesubmit = (event)=>{
+       
+        event.preventDefault()
+
         const user={
             username:this.state.username
           }
@@ -25,7 +32,7 @@ class Forgot extends React.Component{
 
             }
             else{
-                alert("change password")
+               window.location="/changepass/"+user.username;
             }
           } )
         }
@@ -36,13 +43,19 @@ class Forgot extends React.Component{
           }
           render(){
             return(
+                <div className="forgot">
                 <React.Fragment>
-              <Form >
-              <label for="username">Username</label>
+              <form onSubmit={this.handlesubmit}>
+              <label for="username">Username</label>&nbsp;
                <input type="text" required pattern="[A-Za-z]{3,10}" title="User name must be between 3-10 characters!!" id="fullname" name="username" value={this.state.username} placeholder="Enter Username" onChange={this.onInputChange}/>
-               <input type="submit"  onClick={this.handlesubmit} className='submit' value="change password" ></input> 
-                </Form>
+                <br></br>
+              {/* <Link to={"/changepass"}>  */}
+             {/* <button  type="submit">change password</button>  */}
+              <input type="submit"  onClick={this.handlesubmit} className='forgotsubmit' value="change password" ></input>
+             {/* </Link>  */}
+                </form>
                 </React.Fragment>
+                </div>
             )
           }
         

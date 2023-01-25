@@ -6,8 +6,11 @@ class Registration extends React.Component{
 
     constructor(props){
         super(props);
-        this.state= this.initiaLSTATE;
-        this.state={};
+        // this.state= this.initiaLSTATE;
+        this.state={
+          // roles:[],
+        };
+        
     }
 
   //   login(){
@@ -15,20 +18,38 @@ class Registration extends React.Component{
   // }
 
 
-    initiaLSTATE={
-        id:"",
-        name:"",
-        username:"",
-        email:"",
-        contact:"",
-        pass:"",
-        cnfmpass:"",
-        address:"",
-        area:"",
-        role:"",
-    };
+    // initiaLSTATE={
+    //     id:"",
+    //     name:"",
+    //     username:"",
+    //     email:"",
+    //     contact:"",
+    //     pass:"",
+    //     cnfmpass:"",
+    //     address:"",
+    //     area:"",
+    //     role:"",
+    // };
+    // componentDidMount() {
+    //   let initialroles = [];
+    //   fetch('http://localhost:9001/api/loginservice/role')
+    //     .then(response => {
+    //         return response.json();
+    //       }).then(data => {
+    //       initialroles = data.results && data.results.map((role) => {
+    //           return role
+    //     //  console.log(role)
+    // });
+    // then(Response => Response.data).then((data)=>{this.setState({hospitals:data})});
+  //         console.log(initialroles);
+  //         this.setState({
+  //           role:data,
+  //         });
+  //     });
+  // }
     handlesubmit=(event)=>{
-    
+      // event.preventDefault()
+
         const user={
             name:this.state.name,
             username:this.state.username,
@@ -43,12 +64,12 @@ class Registration extends React.Component{
           const confirmpassword= this.state.cnfmpass;
           const password = this.state.pass; 
           if(confirmpassword===password) {
-            alert("hi")
+            // alert("hi")
             axios.post("http://localhost:9001/api/loginservice/register",user).then(response => {
                 if(response.data==="Username Already Exists"){
                     this.setState(this.initiaLSTATE);
                     alert("Username Already Exists"); 
-    
+                    window.location.reload();
                 }
                 else{
                     alert("user saved")
@@ -69,6 +90,11 @@ class Registration extends React.Component{
         })
       }
     render(){
+      // let role=this.state.role;
+      // let optionItems = role && role.map((role) =>
+      //           <option key={role.name} value={role.name}>{role.name}</option>
+      //       );
+
         return(
             <React.Fragment>
           <Form >
@@ -87,16 +113,19 @@ class Registration extends React.Component{
                <label for="address">Address</label> <input type="text"	id="address" name="address" value={this.state.address} required placeholder="address" onChange={this.onInputChange}/>
                <label for="area">Area</label> <input type="text"
                                     id="area" name="area" value={this.state.area} required placeholder="Area" onChange={this.onInputChange}/>
-             <select id="vehicleList" name="role" value={this.state.role} required onChange={this.onInputChange}>
-                                    
-                      <option value="" disabled selected>Select Your Role</option>
-                      {/* <option value="ADMIN" >ADMIN</option> */}
+               <label for="role">Select Your Role</label><br></br>
+             <select id="vehicleList" name="role" required onChange={this.onInputChange}>
+                                  
+                      <option value="" disabled selected>Select Your Role</option> 
+                       {/* <option value="ADMIN" >ADMIN</option>  */}
                       <option value="VENDOR">VENDOR</option>
-                      <option value="CUSTOMER">CUSTOMER</option>
+                      <option value="USER">USER</option>
                       <option value="DELIVERY">DELIVERY</option>
                         {/* <c:forEach var="v" items="${roleval}"> */}
                           {/* <option id="aa" ></option> */}
                         {/* </c:forEach>	 */}
+                        {/* {optionItems} */}
+
                </select>
                
                 <input type="submit"  onClick={this.handlesubmit} className='submit' value="Submit and Back to Login" ></input> 

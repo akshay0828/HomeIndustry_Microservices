@@ -1,0 +1,93 @@
+.App {
+  text-align: center;
+  /* margin-top: 8%; */
+  color: #050505;
+  font-size: 290%;
+}
+
+.admin{
+  color: aliceblue;
+  font-size: 190%;
+  margin-top: -5%;
+}
+
+
+.third {
+	border-color: 2px white;
+	color: rgb(7, 7, 7);
+	transition: all 150ms ease-in-out;
+}
+
+.third:hover {
+	box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+.btn {
+	
+	background-color: rgb(255, 247, 247);
+	border: 1px solid white;
+	border-radius: 0.9em;
+	color: rgb(255, 250, 250);
+	
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 0.6;
+	
+	text-decoration: none;
+	text-align: center;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 500;
+}
+
+.btn:hover, .btn:focus {
+	color: rgb(0, 0, 0);
+	outline: 0;
+}
+
+.App-header {
+  background-color: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(241, 237, 237);
+}
+
+.table {
+  /* background-color: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(241, 237, 237); */
+  /* margin-top: -10%; */
+}
+.border {
+  height: 100%;
+  width: 100%;
+}
+.heading{
+  color: black;
+ font-size: 150%;
+}
+
+.header{
+ width: 25rem;
+ height: 20rem;
+}
+
+.title{
+  margin-top: 20%;
+  font-size: 130%;
+  color: black;
+}
+
+
+.logout{
+  padding-left: 90%;
+}
+

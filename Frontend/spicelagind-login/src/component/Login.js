@@ -14,22 +14,52 @@ class Login extends React.Component{
         username:"",
         pass:""
     };
-    handlesubmit= (event) => {
-        alert(this.state.username)
+    handlesubmit = (event) => {
+        event.preventDefault()
+        
+
+         alert(this.state.username)
         const user={
             username:this.state.username,
             pass:this.state.pass
         }
         console.log("hii");
-        axios.post('http://localhost:9001/api/loginservice/login',user).then(Response=>{
-  
-        if(Response.data==="sucess"){
-                alert("log in success")
-                
+        axios.post('http://localhost:9001/api/loginservice/login/',user).then(Response=>{
+      
+           
+        if(Response.data==="ADMIN"){
+            axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  
+                const id=response.data;
+                alert(id);
+         
+            window.location="/admin/"+id;
+        })
+            }
+            else if(Response.data==="USER"){
+                axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  
+                    const id=response.data;
+                    alert(id);
+                window.location="/user/"+id;
+            })
+            }
+            else if(Response.data==="VENDOR"){
+                axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  
+                    const id=response.data;
+                    alert(id);
+                window.location="/vendor/"+id;
+            })
+            }
+            else if(Response.data==="DELIVERY"){
+                axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  
+                    const id=response.data;
+                    alert(id);
+                window.location="/delivery/"+id;
+            })
             }
             else{
                 alert("login failed")
             }
+       
         })  
     }
     onInputChange=(e)=>{

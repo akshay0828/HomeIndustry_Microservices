@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import OrderDetails from './OrderDetails';
+// import OrderDetails from './OrderDetails';
 import './DeliveryDashboard.css';
-import LogoutButton from './LogOut';
-import ExampleComponent from './SelectArea';
+// import LogoutButton from './LogOut';
+// import ExampleComponent from './SelectArea';
 
 function Dashboard() {
     
@@ -17,7 +17,7 @@ function Dashboard() {
 
     return (
         <div>
-            <LogoutButton />
+            {/* <LogoutButton />  */}
             <h1>Welcome to the Delivery Dashboard</h1>
             <button onClick={handleUpdateProfile}><a href="/updateProfile" class="Aprofile" >Update Profile</a></button>
             <button onClick={handleViewOrders}><a href="/viewOrders" class="Aprofile" >View Orders</a></button>
