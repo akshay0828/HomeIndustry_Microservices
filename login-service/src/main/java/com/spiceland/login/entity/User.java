@@ -100,7 +100,7 @@ public class User {
 	}
 
 	
-	public User(String name, String email, String username, String pass, String address, String area, 
+	public User(String name, String email, String username, String pass, String address, String area, boolean enabled,
 			 String contact, String role) {
 		super();
 		this.name = name;
@@ -110,9 +110,9 @@ public class User {
 
 		this.address = address;
 		this.area = area;
-		
+		this.enabled = enabled;
 		this.contact = contact;
-		this.enabled = true;
+		
 		this.role = role;
 	}
 	
