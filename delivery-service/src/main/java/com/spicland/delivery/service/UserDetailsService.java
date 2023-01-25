@@ -26,7 +26,9 @@ public interface UserDetailsService {
 	
 	User getUsername(int id);
 
-	List<Products> findAllProducts();
+
+
+	void updateUserLogin(User user, int id);
 
 
 }

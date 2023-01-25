@@ -12,15 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spicland.delivery.Facade.UserFacade;
 import com.spicland.delivery.entity.Orders;
-import com.spicland.delivery.entity.Products;
 import com.spicland.delivery.entity.User;
 import com.spicland.delivery.service.OrderService;
 
@@ -34,6 +34,9 @@ public class DeliveryController {
 
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private UserFacade facade;
 
 	private static final Logger logger = LoggerFactory.getLogger(DeliveryController.class);
 
@@ -47,18 +50,18 @@ public class DeliveryController {
 
 	@GetMapping("/getUserData/{id}")
 	public User getUserData(@PathVariable("id") int id, Model model) {
-		return service.getuser(id);
+		return facade.getuser(id);
 	}
 
-	@PutMapping("/UpdateDeliveryPerson/{id}")
-	public void deliveryDataPerson(@RequestBody User user, @PathVariable("id") int id, Model model) {
+	@PostMapping("/UpdateDeliveryPerson/{id}")
+	public void deliveryDataPerson(@RequestBody User user, @PathVariable("id") int id) {
 
-		service.updateUser(user);
+		facade.updateUser(user,id);
 	}
 
 	@GetMapping("/getAllOrders/{id}")
 	public List<Orders> getOrderDetails() {
-		return orderService.findAll();
+		return facade.getAllOrders();
 	}
 	
 	@GetMapping("/getOrdersAllByArea/{status}")
@@ -74,11 +77,7 @@ public class DeliveryController {
 		}
 		return address;
 	}
-	@GetMapping("/getProducts")
-	public List<Products> getProducts() {
-		return service.findAllProducts();
-	}
-
+	
 
 	@GetMapping("/getOrdersByArea/{id}")
 	public List<Orders> getOrdersByArea(@PathVariable("id") int id,@RequestParam("address") String loc){
@@ -116,14 +115,4 @@ public class DeliveryController {
 		orderService.updateStatus(order);
 		
 	}
-
-//	@GetMapping("/acceptorder/{id}/{userid}")
-//	public String acceptorders(@PathVariable("id") int id, Model model, @PathVariable("userid") int userid) {
-//		logger.info("Accepting orders placed by customer");
-//		model.addAttribute("deliver", service.getByid(id));
-//		model.addAttribute("user", service.getByid(userid));
-//		logger.debug("Accepted order with the " + id + " from the customer with the id " + userid);
-//		return "delivery/acceptorder";
-//	}
-
 }
