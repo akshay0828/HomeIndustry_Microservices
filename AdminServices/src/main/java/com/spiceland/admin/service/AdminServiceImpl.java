@@ -27,16 +27,19 @@ public class AdminServiceImpl implements AdminService  {
 	@Autowired
 	private AdminDAO adminDAO;
 	
+	
+	
+	
 
 	
 
 	@Override
 	public List<User> getAllByVendorFalse(){
-		return userRepo.findAllByRole("VENDOR");
+		return userRepo.findAllByRoleAndEnabledFalse("VENDOR");
 	}
 	@Override
 	public List<User> getAllByDeliveryFalse(){
-		return userRepo.findAllByRole("DELIVERY");
+		return userRepo.findAllByRoleAndEnabledFalse("DELIVERY");
 		
 	}
 	@Override
@@ -52,8 +55,17 @@ public class AdminServiceImpl implements AdminService  {
 		
 	}
 	
+	@Override
+	public void deleteUser(int id) {
+		userRepo.deleteById(id);
+	}
 	
-
+	@Override
+	public void updateUser(int id) {
+		adminDAO.updateUser(id);
+	}
+	
+	
 	
 	
 	

@@ -28,7 +28,7 @@ public class Payment {
 	
 	private String cardNo;
 	
-//	private Orders orders;
+
 	
 	private String paymentType;
 	

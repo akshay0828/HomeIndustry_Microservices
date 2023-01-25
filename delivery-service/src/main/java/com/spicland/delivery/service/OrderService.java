@@ -10,8 +10,6 @@ public interface OrderService {
 	void saveOrder(Orders orders);
 
 	List<Orders> findAll();
-	
-	List<Orders> findAllByArea();
 
 	boolean existsById(Integer id);
 
@@ -22,5 +20,11 @@ public interface OrderService {
 	void deletebyId(int id);
 
 	List<Orders> FindByArea(String area);
+	
+	List<Orders> FindByStatus(String status);
+	
+	void updateStatus(Orders order);
+	
+	List<Orders> getOrdersByAreaAndStatus(String loc,String status);
 
 }

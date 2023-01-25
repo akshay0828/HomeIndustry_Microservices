@@ -6,95 +6,96 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;// unique constraint of the Order .
-	private ArrayList<Integer> cartIds;// List of the id's of cartitems.
+	private ArrayList<String> cart;// List of the id's of cartitems.
 	private String orderDate;// Date on which order is placed.
-	private int user_id;// user id ,who placed the order.
+	private int userId;// user id ,who placed the order.
 	private String area;
-	private ArrayList<Integer> adminIds;
-
+	private String status;
+	@OneToOne(targetEntity=Payment.class)
+	@JoinColumn(name="paymentId",referencedColumnName="id")
+	private Payment payment;
 	public Orders() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-
-	public Orders(int id, ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds,
-			String area) {
+	public Orders(int id, ArrayList<String> cart, String orderDate, int userId, String area, String status,
+			Payment payment) {
 		super();
 		this.id = id;
-		this.cartIds = cartIds;
+		this.cart = cart;
 		this.orderDate = orderDate;
-		this.user_id = user_id;
-		this.adminIds = adminIds;
+		this.userId = userId;
 		this.area = area;
+		this.status = status;
+		this.payment = payment;
 	}
-
-	public Orders(ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds, String area) {
+	public Orders(ArrayList<String> cart, String orderDate, int userId, String area, String status, Payment payment) {
 		super();
-		this.cartIds = cartIds;
+		this.cart = cart;
 		this.orderDate = orderDate;
-		this.user_id = user_id;
-		this.adminIds = adminIds;
+		this.userId = userId;
 		this.area = area;
+		this.status = status;
+		this.payment = payment;
 	}
-
-	// Getters and Setters
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", cart=" + cart + ", orderDate=" + orderDate + ", userId=" + userId + ", area="
+				+ area + ", status=" + status + ", payment=" + payment + "]";
+	}
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public ArrayList<Integer> getCartIds() {
-		return cartIds;
+	public ArrayList<String> getCart() {
+		return cart;
 	}
-
-	public void setCartIds(ArrayList<Integer> cartIds) {
-		this.cartIds = cartIds;
+	public void setCart(ArrayList<String> cart) {
+		this.cart = cart;
 	}
-
-	public String getDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
-
-	public void setDate(String orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
-
-	public int getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-
-	public ArrayList<Integer> getAdminIds() {
-		return adminIds;
-	}
-
-	public void setAdminIds(ArrayList<Integer> adminIds) {
-		this.adminIds = adminIds;
-	}
-
 	public String getArea() {
 		return area;
 	}
-
 	public void setArea(String area) {
 		this.area = area;
 	}
-
-	@Override
-	public String toString() {
-		return "Orders [id=" + id + ", cartIds=" + cartIds + ", date=" + orderDate + ", user_id=" + user_id + ", area="
-				+ area + ", adminIds=" + adminIds + "]";
+	public String getStatus() {
+		return status;
 	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Payment getPayment() {
+		return payment;
+	}
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
+	
+
+	
 
 }

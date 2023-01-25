@@ -1,47 +1,34 @@
 package com.spiceland.customer.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;// unique constraint of the Order .
-	private ArrayList<Integer> cartIds;// List of the id's of cartitems.
+	private ArrayList<String> cart;// List of the id's of cartitems.
 	private String orderDate;// Date on which order is placed.
 	private int userId;// user id ,who placed the order.
 	private String area;
-	private ArrayList<Integer> adminIds;
+	private String status;
+	@OneToOne(targetEntity=Payment.class)
+	@JoinColumn(name="paymentId",referencedColumnName="id")
+	private Payment payment;	
 
 	public Orders() {
 		super();
 	}
 
-	public Orders(int id, ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds,
-			String area) {
-		super();
-		this.id = id;
-		this.cartIds = cartIds;
-		this.orderDate = orderDate;
-		this.userId = user_id;
-		this.adminIds = adminIds;
-		this.area = area;
-	}
-
-	public Orders(ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds, String area) {
-		super();
-		this.cartIds = cartIds;
-		this.orderDate = orderDate;
-		this.userId = user_id;
-		this.adminIds = adminIds;
-		this.area = area;
-	}
-
+	
 	// Getters and Setters
 	public int getId() {
 		return id;
@@ -51,21 +38,37 @@ public class Orders {
 		this.id = id;
 	}
 
-	public ArrayList<Integer> getCartIds() {
-		return cartIds;
+
+
+	public List<String> getCart() {
+		return cart;
 	}
 
-	public void setCartIds(ArrayList<Integer> cartIds) {
-		this.cartIds = cartIds;
+
+	public void setCart(ArrayList<String> cart) {
+		this.cart = cart;
 	}
 
-	public String getDate() {
+
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setDate(String orderDate) {
+
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 
 	public int getUserId() {
 		return userId;
@@ -75,13 +78,17 @@ public class Orders {
 		this.userId = user_id;
 	}
 
-	public ArrayList<Integer> getAdminIds() {
-		return adminIds;
+	
+
+	public Payment getPayment() {
+		return payment;
 	}
 
-	public void setAdminIds(ArrayList<Integer> adminIds) {
-		this.adminIds = adminIds;
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
+
 
 	public String getArea() {
 		return area;
@@ -93,9 +100,34 @@ public class Orders {
 
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", cartIds=" + cartIds + ", date=" + orderDate + ", user_id=" + userId + ", area="
-				+ area + ", adminIds=" + adminIds + "]";
+		return "Orders [id=" + id + ", cartIds=" + cart + ", date=" + orderDate + ", user_id=" + userId + ", area="
+				+ area + "]";
 	}
+
+
+	public Orders(int id, ArrayList<String> cart, String orderDate, int userId, String area, String status,
+			Payment payment) {
+		super();
+		this.id = id;
+		this.cart = cart;
+		this.orderDate = orderDate;
+		this.userId = userId;
+		this.area = area;
+		this.status = status;
+		this.payment = payment;
+	}
+
+
+	public Orders(ArrayList<String> cart, String orderDate, int userId, String area, String status, Payment payment) {
+		super();
+		this.cart = cart;
+		this.orderDate = orderDate;
+		this.userId = userId;
+		this.area = area;
+		this.status = status;
+		this.payment = payment;
+	}
+	
 
 }
 

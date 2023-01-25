@@ -5,6 +5,10 @@ import './EditProfile.css';
 import NavBar from './NavBar';
 import isMounted from 'react';
 import setIsMounted from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+
+
 
 function EditProfile() {
     const [name, setName] = useState('');
@@ -14,25 +18,41 @@ function EditProfile() {
     const [area, setArea] = useState('');
     const [contact, setContact] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Code to handle submitting the form, such as making an API call to update the user's profile information
-        console.log(name, email, username, address, area, contact);
+       const dd= document.getElementById('name').value;   
+       alert(dd);
+        try {
+            const res = await axios.put(`http://localhost:9004/api/delivery/UpdateDeliveryPerson/625`, {
+                id: 625,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                username: document.getElementById('name').value,
+                address: document.getElementById('address').value,
+                area: document.getElementById('area').value,
+                contact:document.getElementById('contact').value
+            });
+            
+            alert("Profile updated successfully");
+            
+        } catch (err) {
+            console.error(err);
+            alert("Error updating profile. Please try again later.");
+        }
     }
     const [users,setUsers]=useState(false);
   useEffect( () => {
     if(!users) {
         setUsers(true);
-        // call the api here
         loadUsers();
     }
    
   });
   const loadUsers=async () => {
-    const result=await axios.get("http://localhost:9004/api/delivery/getUserData/1");
+    const result=await axios.get("http://localhost:9004/api/delivery/getUserData/625");
                                    
     setUsers(result.data);
-    console.log(result.data);
+    // console.log(result.data);
   }
   const handleReset = () => {
     setName('');
@@ -53,35 +73,38 @@ function EditProfile() {
         <form onSubmit={handleSubmit} className="edit-profile">
             <label>
                 Name:
-                <input type="text" defaultValue={users.name} onChange={e => setName(e.target.value)} />
+                <input type="text" id= "name" defaultValue={users.name}  />
             </label>
             <br />
             <label>
                 Email:
-                <input type="email" defaultValue={users.email} onChange={e => setEmail(e.target.value)} />
+                <input type="email" id= "email" defaultValue={users.email}  />
             </label>
             <br />
             <label>
                 Username:
-                <input type="text" defaultValue={users.username} onChange={e => setUsername(e.target.value)} />
+                <input type="text"  value={users.username} onChange={e => setUsername(e.target.value)} />
             </label>
             <br />
             <label>
                 Address:
-                <textarea defaultValue={users.address} onChange={e => setAddress(e.target.value)} />
+                <textarea defaultValue={users.address} id="address" />
             </label>
             <br />
             <label>
                 Area:
-                <input type="text" defaultValue={users.area} onChange={e => setArea(e.target.value)} />
+                <input type="text" defaultValue={users.area} id="area" />
             </label>
             <br />
             <label>
                 Contact:
-                <input type="text" defaultValue={users.contact} onChange={e => setContact(e.target.value)} />
+                <input type="text" defaultValue={users.contact} id="contact" />
             </label>
             <br />
-            <button type="submit">Save</button>
+            
+            <button type="submit" className='btn btn-primary'>Save</button>
+            
+            
             
         </form>
         </div>

@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import EditProfile from './pages/EditProfile';
 import ViewOrders from './pages/ViewOrders';
+import SelectArea from './pages/SelectArea';
+import OrderDetails from './pages/OrderDetails';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,7 +22,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/viewOrders",
-    element: <ViewOrders />,
+    element: <SelectArea />,
+  },
+  {
+    path: "/orderDetails" ,
+    element: <OrderDetails />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(

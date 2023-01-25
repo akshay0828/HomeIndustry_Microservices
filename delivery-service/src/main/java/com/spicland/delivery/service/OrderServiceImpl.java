@@ -1,15 +1,15 @@
 package com.spicland.delivery.service;
 
-import java.util.List;
+import java.util.List; 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spicland.delivery.dao.OrderDao;
 import com.spicland.delivery.entity.Orders;
 import com.spicland.delivery.repo.OrderRepository;
-import com.sun.xml.internal.stream.Entity;
 
 
 @Service
@@ -17,6 +17,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderDao orderDao;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
@@ -73,6 +76,23 @@ public class OrderServiceImpl implements OrderService {
 
 		return orderRepository.findByArea(area);
 
+	}
+
+	@Override
+	public void updateStatus(Orders order) {
+
+		orderDao.updateOrderStatus(order);
+	}
+
+	@Override
+	public List<Orders> FindByStatus(String status) {
+		
+		return orderRepository.findByStatus(status);
+	}
+
+	@Override
+	public List<Orders> getOrdersByAreaAndStatus(String loc,String status) {
+		return orderDao.getOrdersByAreaAndStatus(loc,status);
 	}
 
 }
