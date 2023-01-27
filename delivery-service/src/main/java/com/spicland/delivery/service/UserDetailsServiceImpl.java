@@ -1,6 +1,6 @@
 package com.spicland.delivery.service;
 
-import java.util.List;
+import java.util.List; 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spicland.delivery.dao.UserDetailsDao;
-import com.spicland.delivery.entity.Products;
 import com.spicland.delivery.entity.User;
 import com.spicland.delivery.repo.UserReopsitory;
-import com.spicland.delivery.repo.productsRepo;
 
 @Service
 public class UserDetailsServiceImpl
@@ -20,8 +18,7 @@ public class UserDetailsServiceImpl
 	@Autowired
 	private UserReopsitory userRepository;
 	
-	@Autowired
-	private productsRepo repo;
+
 
 	@Autowired
 	private UserDetailsDao userdao;
@@ -77,11 +74,13 @@ public class UserDetailsServiceImpl
 
 	}
 
+	
+	
 	@Override
-	public List<Products> findAllProducts() {
-		
-		return repo.findAll();
-	}
+	public void updateUserLogin(User user,int id) {
+		userdao.updateUserDaoLogin(user.getName(), user.getEmail(), user.getContact(), user.getArea(), user.getAddress(),id);
+
+	} 
 
 
 	
