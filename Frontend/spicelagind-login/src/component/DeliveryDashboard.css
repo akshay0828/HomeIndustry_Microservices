@@ -2,27 +2,31 @@
     text-decoration: none;
 }
 .delivery-dashboard {
-     background-image: url('');
-     background-size: cover;
-     background-repeat: no-repeat;
-     background-position: center center;
-     height: 100vh;
-     width: 100%;
-     margin-top: 20%;
-    }
-.welcome-message {
+  background-image: url('');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+  width: 100%;
+  margin-top: 20%;
+    
+  }
+  
+  
+  .welcome-message {
     font-size: 3rem;
     font-weight: bold;
     margin-bottom: 1rem;
-} 
-.button-container {
+  }
+  
+  .button-container {
     display: flex;
     justify-content: center;
-}
-    
-.update-profile-button,
-.view-orders-button {
-     width: 150px;
-      height: 40px;
-      margin-left: 30px; 
-    }
+  }
+  
+  .update-profile-button,
+  .view-orders-button {
+    width: 150px;
+    height: 40px;
+    margin-left: 30px;
+  }

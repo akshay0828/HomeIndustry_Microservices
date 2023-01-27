@@ -1,4 +1,4 @@
-.App {
+.App1 {
   text-align: center;
   /* margin-top: 8%; */
   color: #050505;
@@ -44,7 +44,7 @@
 	outline: 0;
 }
 
-.App-header {
+.App-header1 {
   background-color: #0a0a0a;
   min-height: 100vh;
   display: flex;

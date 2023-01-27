@@ -79,7 +79,7 @@ alert(result);
   return (
     <React.Fragment>
           <Form >
-    <MDBContainer fluid className='bg-dark'>
+    {/* <MDBContainer fluid className='bg-dark'>
 
       <MDBRow className='d-flex justify-content-center align-items-center h-100'>
         <MDBCol>
@@ -88,11 +88,11 @@ alert(result);
 
             <MDBRow className='g-5'>
 
-              <MDBCol md='6'>
+              <MDBCol md='6'> */}
                 {/* <MDBCardImage src='https://i5.walmartimages.com/asr/949dc216-3595-4642-83b2-57fe82a62090.a99f70a5b272915ce33912f78800e7dc.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF'  alt="MDBCard image cap" className="img-fluid" fluid/> */}
-              &nbsp;
+              {/* &nbsp;
               <img src= 'https://i5.walmartimages.com/asr/949dc216-3595-4642-83b2-57fe82a62090.a99f70a5b272915ce33912f78800e7dc.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF'width={900} height={900} />
-              </MDBCol>
+              </MDBCol> */}
               <MDBCol md='6'>
 
                 <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
@@ -131,14 +131,14 @@ alert(result);
                 </MDBCardBody>
 
               </MDBCol>
-            </MDBRow>
+            {/* </MDBRow>
 
           </MDBCard>
 
         </MDBCol>
       </MDBRow>
 
-    </MDBContainer>
+    </MDBContainer> */}
     </Form>
     </React.Fragment>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import './Admin.css'
-import './Customer.css'
+// import './Admin.css'
+// import './Customer.css'
 
 import Forgot from './component/Forgot';
 import Home from './component/Home';
@@ -14,11 +14,20 @@ import AddProducts from './component/AddProducts';
 import ManageProducts from './component/ManageProducts';
 import UpdateProduct from './component/UpdateProducts';
 import UpdateProfile from './component/UpdateProfile';
-import { BrowserRouter as Router, Route,Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route,Routes,Navigate } from "react-router-dom";
 import {Container, Row, Col} from 'react-bootstrap';
+import VendorApproval from './component/VendorApproval';
+import Vieworders from './component/Vieworders';
+import DeliveryApproval from './component/DeliveryApproval';
+import NavigationBar from './component/NavigationBar';
+
+import ReactDOM from 'react-dom/client';
 
 
+import EditProfile from './component/EditProfile';
 
+import SelectArea from './component/SelectArea';
+import OrderDetails from './component/OrderDetails';
 function App() {
 
   const marginTop={
@@ -33,7 +42,7 @@ function App() {
 
       <Router>
 
-      
+    
 
       <Container>
 
@@ -46,7 +55,7 @@ function App() {
         <Route exact path ="/" element={<Home/>}></Route>
         <Route exact path ="/forgotPass" element={<Forgot/>}></Route>
         <Route exact path ="/changePass/:username" element={<Password />}></Route>
-        <Route exact path ="/admin/:id" element={<AdminHomePage />}></Route>
+        <Route exact path ="/admin" element={<AdminHomePage />}></Route>
         <Route exact path ="/delivery/:id" element={<Dashboard />}></Route>
         <Route exact path ="/user/:id" element={<Customer />}></Route>
         <Route exact path="/vendor/:id" element={<VendorHomePage />}/> 
@@ -54,6 +63,12 @@ function App() {
         <Route exact path="/manageProducts/:id" element={< ManageProducts />}/> 
          <Route exact path="/updateProfile/:id" element={< UpdateProfile />}/> 
         <Route exact path="/updateProduct/:id" element={< UpdateProduct />}/>
+        <Route exact path="/VendorApproval" element={< VendorApproval />}/> 
+        <Route exact path="/DeliveryApproval" element={< DeliveryApproval />}/>
+        <Route exact path="/viewOrders" element={< Vieworders />}/> 
+        {/* <Route exact path="/updateProfile/:id" element={< EditProfile />}/>  */}
+        <Route exact path="/Orders/:id" element={< SelectArea />}/> 
+        <Route exact path="/orderDetails/:id/:cus_id" element={< OrderDetails />}/>  
       </Routes>
 
        </Col>

@@ -25,15 +25,14 @@ class Login extends React.Component{
         }
         console.log("hii");
         axios.post('http://localhost:9001/api/loginservice/login/',user).then(Response=>{
+            alert(Response.data);
       
            
         if(Response.data==="ADMIN"){
-            axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  
-                const id=response.data;
-                alert(id);
+           
          
-            window.location="/admin/"+id;
-        })
+            window.location="/admin";
+        
             }
             else if(Response.data==="USER"){
                 axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  

@@ -112,17 +112,18 @@ public class loginController {
 		String s3 = "DELIVERY";
 		System.out.println("==========" + user.getUsername());
 
-		String role1 = service.getrole(user.getUsername());
-		System.out.println(role1);
+		//String role1 = service.getrole(user.getUsername());
+		//System.out.println(role1);
 		try {
+			if ((user.getUsername().equals("admin")&&user.getPass().equals("admin"))){
+				return "ADMIN";
+			}
 
 			String role = service.getrole(user.getUsername());
 			System.out.println(role);
 			logger.debug("Logging with the role as " + role);
-			if (user.getRole().equals("ADMIN")) {
-				return "ADMIN";
-			}
-			if (role.equals(s1)) {
+			
+			 if (role.equals(s1)) {
 
 				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
 						service.findUserPass(user.getUsername()))
@@ -139,13 +140,7 @@ public class loginController {
 					return "VENDOR";
 				}
 
-				else {
 
-					// model.addAttribute("error", "Invalid Username and
-					// Password");
-					return "Invalid Username and Password";
-
-				}
 
 			} else if (role.equals(s2)) {
 
@@ -164,10 +159,6 @@ public class loginController {
 					return "USER";
 				}
 
-				else {
-					return "Invalid Username and Password";
-
-				}
 
 			}
 
@@ -185,12 +176,12 @@ public class loginController {
 					return "DELIVERY";
 				}
 
-				else {
+			}
+			else {
 					return "Invalid Username and Password";
 
 				}
 
-			}
 
 		} catch (Exception n) {
 			logger.error("Invalid credentials");
@@ -198,7 +189,6 @@ public class loginController {
 			return "Invalid Username and Password";
 		}
 		return "ADMIN";
-
 	}
 
 	@GetMapping("/login/{username}")

@@ -80,23 +80,23 @@ window.location="/manageProducts/"+id;
   return (
     <React.Fragment>
           <Form >
-    <MDBContainer fluid className='bg-dark'>
+     {/* <MDBContainer fluid className='bg-dark'>
 
       <MDBRow className='d-flex justify-content-center align-items-center h-100'>
-        <MDBCol>
+        <MDBCol> */}
 
-          <MDBCard className='my-4'>
+          {/* <MDBCard className='my-8'> */}
 
-            <MDBRow className='g-5'>
+            <MDBRow className='g-8'> 
 
-              <MDBCol md='6'>
+              {/* <MDBCol md='10'> */}
                 {/* <MDBCardImage src='https://i5.walmartimages.com/asr/949dc216-3595-4642-83b2-57fe82a62090.a99f70a5b272915ce33912f78800e7dc.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF'  alt="MDBCard image cap" className="img-fluid" fluid/> */}
-              &nbsp;
+              {/* &nbsp;
               <img src= 'https://i5.walmartimages.com/asr/949dc216-3595-4642-83b2-57fe82a62090.a99f70a5b272915ce33912f78800e7dc.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF'width={900} height={900} />
-              </MDBCol>
+              </MDBCol> */}
               <MDBCol md='6'>
 
-                <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
+                 <MDBCardBody className='text-black d-flex flex-column justify-content-center'> 
                   <h3 className="mb-5 text-uppercase fw-bold">ADD PRODUCTS</h3>
 
                   <MDBRow>
@@ -130,17 +130,17 @@ window.location="/manageProducts/"+id;
                     <MDBBtn type="submit"  onClick={this.handlesubmit} className='ms-2' color='warning' value="Submit and Back to Login" >Add Products</MDBBtn>
                   </div>
                   
-                </MDBCardBody>
+               </MDBCardBody> 
 
               </MDBCol>
-            </MDBRow>
+             </MDBRow>
 
-          </MDBCard>
+          {/* </MDBCard> */}
 
-        </MDBCol>
+        {/* </MDBCol>
       </MDBRow>
 
-    </MDBContainer>
+    </MDBContainer>  */}
     </Form>
     </React.Fragment>
   );

@@ -39,7 +39,7 @@ class ManageProducts extends React.Component{
     
 
       alert(id);
-      axios.delete("http://localhost:9002/api/vendor/deleteProduct/"+id+"/"+userid);
+      axios.post("http://localhost:9000/api/vendor/deleteProduct/"+id+"/"+userid);
       
       window.location.reload ();
 
@@ -54,7 +54,7 @@ class ManageProducts extends React.Component{
     render(){
         return(
             <div className="table">
-        <Card className={"border border-dark bg-b=dark text-white"}>
+        {/* <Card className={"border border-dark bg-b=dark text-white"}> */}
         <Card.Header className={"heading"}>Products Details</Card.Header>
          <Card.Body>
         <Table bordered hover striped variant="dark">
@@ -94,7 +94,7 @@ class ManageProducts extends React.Component{
            </tbody>
         </Table>
        </Card.Body>
-       </Card>
+       {/* </Card> */}
        </div>
 
 

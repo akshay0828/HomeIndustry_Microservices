@@ -2,7 +2,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-
+import './EditProfile.css';
 
 import NavBar from './NavigationBar';
 
@@ -125,26 +125,17 @@ function UpdateProfile() {
 }
 
 
-
-   
-   
-  
-
-
-
-
-
     return (
 
         <div>
-            <MDBContainer fluid className='bg-dark'>
-            <MDBRow className='d-flex justify-content-center align-items-center h-100'>
+            {/* <MDBContainer fluid className='bg-dark'> */}
+            {/* <MDBRow className='d-flex justify-content-center align-items-center h-100'>
         <MDBCol>
 
         <MDBCard className='my-5'>
 
-<MDBRow className='g-5'>
-<MDBCardBody className='text-black d-flex flex-column justify-content-center'>
+<MDBRow className='g-5'> */}
+{/* <MDBCardBody className='text-black d-flex flex-column justify-content-center'> */}
                   <h3 className="mb-5 text-uppercase fw-bold">Update Profile</h3>
 
         <form onSubmit={handleSubmit} className="edit-profile">
@@ -227,12 +218,12 @@ function UpdateProfile() {
            
         
         </form>
-        </MDBCardBody>
-        </MDBRow>
+        {/* </MDBCardBody> */}
+        {/* </MDBRow>
         </MDBCard>
         </MDBCol>
-        </MDBRow>
-        </MDBContainer>
+        </MDBRow> */}
+        {/* </MDBContainer> */}
         </div>
 
        
