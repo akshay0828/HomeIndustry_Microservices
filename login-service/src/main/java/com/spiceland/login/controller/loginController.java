@@ -281,5 +281,23 @@ public class loginController {
 	 * 
 	 * }
 	 */
+	@GetMapping("/vendorApproval")
+	public List<User> getAllVendors() {
+
+		return service.getAllByVendorFalse();
+	}
+	@GetMapping("/deliveryApproval")
+	public List<User> getAllDelivery() {
+
+		return service.getAllByDeliveryFalse();
+	}
+	@DeleteMapping("/disapproval/{id}")
+	public String disableUser(@PathVariable("id")int id){
+		User user =service.getByid(id);
+//		user.setRoles(null);
+		System.out.println(user);
+		service.deleteUser(id);
+		return "DisApproved";
+	}
 
 }

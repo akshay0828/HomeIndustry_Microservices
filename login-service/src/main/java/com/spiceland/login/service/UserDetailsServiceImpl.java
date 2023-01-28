@@ -188,5 +188,26 @@ public class UserDetailsServiceImpl
 		return users;
 
 	}
+	@Override
+	public List<User> getAllByVendorFalse(){
+		return userRepository.findAllByRoleAndEnabledFalse("VENDOR");
+	}
+	@Override
+	public List<User> getAllByDeliveryFalse(){
+		return userRepository.findAllByRoleAndEnabledFalse("DELIVERY");
+		
+	}
+	@Override
+	public User enable(String role) {
+		User u= userRepository.findByRole(role);
+		return u;
+		
+	}
+	
+	@Override
+	public void deleteUser(int id) {
+		User u=userRepository.deleteById(id);
+		System.out.println(u);
+	}
 
 }

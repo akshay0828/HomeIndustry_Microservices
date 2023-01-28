@@ -7,7 +7,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.spiceland.admin.entity.Payment;
+import com.spiceland.admin.entity.Orders;
+//import com.spiceland.admin.entity.Payment;
 import com.spiceland.admin.entity.User;
 
 @Component
@@ -17,15 +18,6 @@ public class AdminDAOImpl implements AdminDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 
-	
-	
-	@Override
-	public List<Payment> findAllPayment() {
-		String sql="SELECT * FROM PAYMENT" ;
-		List<Payment> payment =jdbcTemplate.query(sql, new BeanPropertyRowMapper(Payment.class) );
-		return  payment;
-	}
-	
 	
 	
 	@Override
