@@ -10,9 +10,9 @@ import com.spiceland.customer.entity.User;
 
 public interface CustomerService {
 
-	User getUser(int id);
+//	User getUser(int id);
 
-	void updateUser(User user);
+//	void updateUser(User user);
 
 	List<Orders> getPreviousOrders(int id);
 
@@ -20,13 +20,13 @@ public interface CustomerService {
 
 	List<Products> searchForProduct(String search);
 
-	List<User> getVendorDetailsForProduct(String pName);
+//	List<User> getVendorDetailsForProduct(String pName);
 
 	List<Products> getProductDetailsWithSameProductName(String pName);
 
 	List<CartLine> getCartDetails(int customerId);
 	
-	List<User>  getUsers();
+//	List<User>  getUsers();
 
 	void addToCart(int id, int productId, int qauntity);
 

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +19,8 @@ import com.spiceland.customer.entity.Orders;
 import com.spiceland.customer.entity.Payment;
 import com.spiceland.customer.entity.Products;
 import com.spiceland.customer.entity.User;
+import com.spiceland.customer.facade.ProductsFacade;
+import com.spiceland.customer.facade.UserDetailsFacade;
 import com.spiceland.customer.service.CustomerService;
 
 @RestController
@@ -30,17 +31,22 @@ public class CustomerContoller {
 	@Autowired
 	private CustomerService customerService;
 	
+	@Autowired
+	private UserDetailsFacade userDetailsFacade;
+	@Autowired
+	private ProductsFacade productsFacade;
+	
 	
 	@GetMapping("/customerDetails/{id}")
 	public User customerDetails(@PathVariable("id") int id){
-		return customerService.getUser(id);
+		return userDetailsFacade.getUser(id);
 	}
 	
-	@GetMapping("/customerDetails")
-	public List<User> customerDetails(){
-		return customerService.getUsers();
-	}
-	
+//	@GetMapping("/customerDetails")
+//	public List<User> customerDetails(){
+//		return customerService.getUsers();
+//	}
+//	
 //	@GetMapping("/getProducts")
 //	public List<Products> getProducts(){
 //		
@@ -94,13 +100,13 @@ public class CustomerContoller {
 
 	
 	
-	@PutMapping("/UpdateCustomer/{id}")
-	public void deliveryDataPerson(@RequestBody User user, @PathVariable("id") int id, Model model) {
-
-		 
-
-        customerService.updateUser(user);
-    }
+//	@PutMapping("/UpdateCustomer/{id}")
+//	public void deliveryDataPerson(@RequestBody User user, @PathVariable("id") int id, Model model) {
+//
+//		 
+//
+//        customerService.updateUser(user);
+//    }
 	
 	
 	@GetMapping("/PreviousOrders/{id}")
@@ -113,16 +119,14 @@ public class CustomerContoller {
 	
 	@GetMapping("/SpecificProduct/{productName}")
 	public List<Products> specificProduct(@PathVariable("productName") String pName, Model model) {
-		model.addAttribute("vendor",  customerService.getVendorDetailsForProduct(pName));
 		
-		model.addAttribute("product", customerService.getProductDetailsWithSameProductName(pName));
 		
 		return customerService.getProductDetailsWithSameProductName(pName);
 	}
 	
 	@GetMapping("/vendorDetailsForSpecificProduct/{productName}")
 	public List<User> vendorDetailsForSpecificProduct(@PathVariable("productName") String pName, Model model){
-		return customerService.getVendorDetailsForProduct(pName);
+		return productsFacade.getVendorDetailsForProduct(pName);
 	}
 	
 	
