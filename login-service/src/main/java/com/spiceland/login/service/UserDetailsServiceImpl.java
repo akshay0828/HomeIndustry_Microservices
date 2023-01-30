@@ -140,7 +140,7 @@ public class UserDetailsServiceImpl
 		String s2 = "USER";
 		String s3 = "DELIVERY";
 		System.out.println("==========" + user.getUsername());
-
+		 User u=userRepository.findByUsername(user.getUsername());
 		//String role1 = service.getrole(user.getUsername());
 		//System.out.println(role1);
 		try {
@@ -153,7 +153,8 @@ public class UserDetailsServiceImpl
 			logger.debug("Logging with the role as " + role);
 			
 			 if (role.equals(s1)) {
-				 if(user.isEnabled()==true){
+				
+				 if(u.isEnabled()){
 
 				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
 						findUserPass(user.getUsername()))
@@ -192,7 +193,9 @@ public class UserDetailsServiceImpl
 			}
 
 			else if (role.equals(s3)) {
-				if(user.isEnabled()==true){
+//				System.out.println(user.isEnabled());
+				
+				if(u.isEnabled()){
 				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
 						findUserPass(user.getUsername()))
 						&& user.getUsername().equals(findUser(user.getUsername()))) {
