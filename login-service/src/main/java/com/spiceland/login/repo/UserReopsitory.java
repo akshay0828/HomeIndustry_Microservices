@@ -29,5 +29,7 @@ public interface UserReopsitory extends JpaRepository<User, Integer> {
 	User findUserByUsername(String username);
 
 	User findByEmail(String email);
+	List<User> findAllByRoleAndEnabledFalse(String string);
+	User deleteById(int id);
 
 }

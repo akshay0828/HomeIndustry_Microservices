@@ -57,9 +57,21 @@ public interface UserDetailsService {
 
 	void updateUser(User user, int id);
 
+
 	String createUser(RegisterUserModel registerUserModel);
 
 	String login(RegisterUserModel user) throws Exception;
+
+	List<User> getAllByVendorFalse();
+
+	List<User> getAllByDeliveryFalse();
+
+	List<User>  enable(String role);
+	
+
+
+	void deleteUser(int id);
+
 	
 
 }

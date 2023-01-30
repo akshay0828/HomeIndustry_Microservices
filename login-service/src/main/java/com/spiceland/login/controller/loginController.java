@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -156,5 +157,23 @@ public class loginController {
 	 * 
 	 * }
 	 */
+	@GetMapping("/vendorApproval")
+	public List<User> getAllVendors() {
+
+		return service.getAllByVendorFalse();
+	}
+	@GetMapping("/deliveryApproval")
+	public List<User> getAllDelivery() {
+
+		return service.getAllByDeliveryFalse();
+	}
+	@DeleteMapping("/disapproval/{id}")
+	public String disableUser(@PathVariable("id")int id){
+		User user =service.getByid(id);
+//		user.setRoles(null);
+		System.out.println(user);
+		service.deleteUser(id);
+		return "DisApproved";
+	}
 
 }
