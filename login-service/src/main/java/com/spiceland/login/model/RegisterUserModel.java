@@ -1,6 +1,7 @@
 package com.spiceland.login.model;
 
 public class RegisterUserModel {
+	
 	private String name; // Name of the user.
 	private String email; // Email of the user.
 	private String username;// Username of the user.

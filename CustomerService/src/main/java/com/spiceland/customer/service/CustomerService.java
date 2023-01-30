@@ -38,5 +38,11 @@ public interface CustomerService {
 
 	List<Orders> getAllOrders();
 
+	String totalAmonut(int id);
+
+	void decreaseByOne(int cartId);
+
+	void increaseByOne(int cartId);
+
 
 }

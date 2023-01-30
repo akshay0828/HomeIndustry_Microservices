@@ -72,6 +72,7 @@ public interface UserDetailsService {
 
 	void deleteUser(int id);
 
+
 	
 
 }

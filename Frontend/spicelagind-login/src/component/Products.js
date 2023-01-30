@@ -41,8 +41,13 @@ class Products extends React.Component{
           }
           let {id} = this.props.params;
           let pid=document.getElementById('vendors').value;
+
+          alert(pid);
        const qty=this.state.quantity;
+      
        const quantity=11;
+alert(quantity);
+
        if(qty<quantity){
         axios.post("http://localhost:9003/api/customer/AddToCart/"+id+"/"+pid+"/"+qty).then(Response =>(Response.data)) .then((data)=>{this.setState({products:data})});
         window.location="/customer/"+id+"/cartline"
@@ -62,9 +67,13 @@ class Products extends React.Component{
     render(){
 
         let list=this.state.products && this.state.products.map((product) => 
-            <option key={product.id} value={product.id}>vendor name:{product.user.name}&nbsp;price&nbsp;:{product.price} &nbsp;Available&nbsp;Quantity&nbsp;:{product.quantity} </option>
+            <option key={product.id}  value={product.id}  data-product-name={product.quantity}>vendor name:{product.user.name}&nbsp;price&nbsp;:{product.price} &nbsp;Available&nbsp;Quantity&nbsp;:{product.quantity} </option>
         );
        
+
+        // let quan=this.state.products && this.state.products.map((product) => 
+        //     <option key={product.id} value={product.quantity}>vendor name:{product.user.name}&nbsp;price&nbsp;:{product.price} &nbsp;Available&nbsp;Quantity&nbsp;:{product.quantity  } </option>
+        // );
         return(
             
             <form>
@@ -75,6 +84,7 @@ class Products extends React.Component{
        <h2>Choose Your Vendor</h2>
         <select id="vendors" name="vendors">
         {list}
+
           </select>
      <br></br>
           <label for="quantity">Quantity</label><br></br>

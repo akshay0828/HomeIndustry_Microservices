@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState, useEffect } from 'react';
 import {
     Card,
     Table,
@@ -20,10 +21,11 @@ import { Link } from "react-router-dom";
    
     constructor(props){
         super(props);
+       
         this.state={
            carts:[],
           
-          //  total:
+           data: []
         };
 
     } 
@@ -31,25 +33,24 @@ import { Link } from "react-router-dom";
        
           let {id} = this.props.params;
         
-          axios.get("http://localhost:9003/api/customer/CartDetails/"+id).then(Response =>(Response.data)) .then((data)=>{this.setState({carts:data})
-          
+          axios.get("http://localhost:9000/api/customer/CartDetails/"+id).then(Response =>(Response.data)) .then((data)=>{this.setState({carts:data})
+
+          axios.post("http://localhost:9000/api/customer/totalAmount/"+id).then(res => {
+          this.setState({ data: res.data });
+        })
+        .catch(error => {
+          console.log(error);
+        });
           
         });
-       let a= axios.post("http://localhost:9003/api/customer/totalAmount/"+id);
-
-       alert(JSON.stringify(a));
-       console.log(JSON.stringify(a));
-       
-       // alert( JSON.stringify(axios.get("http://localhost:9003/api/customer/totalAmount/"+id)));
-         
       }
      
         handleadd(cartid){
        
-          alert(cartid)
+          // alert(cartid)
         
           
-          axios.post("http://localhost:9003/api/customer/IncreaseBYOne/"+cartid);
+          axios.post("http://localhost:9000/api/customer/IncreaseBYOne/"+cartid);
           window.location.reload();
 
         
@@ -61,7 +62,7 @@ import { Link } from "react-router-dom";
         alert(cartid)
       
         
-        axios.post("http://localhost:9003/api/customer/decreaseBYOne/"+cartid);
+        axios.post("http://localhost:9000/api/customer/decreaseBYOne/"+cartid);
         window.location.reload();
 
       
@@ -119,8 +120,9 @@ import { Link } from "react-router-dom";
         )
 
     }
-  <button type="submit" onClick={this.handletotal}>TotalAmount</button>
- 
+    <tr><td>
+  TotalAmount</td>{this.state.data}<td></td>
+  </tr>
         </tbody>
         </table>
        

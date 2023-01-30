@@ -216,6 +216,53 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<Orders> getAllOrders() {
 		return ordersRepo.findAll();
 	}
+	@Override
+	public void increaseByOne(int cartId) {
+		CartLine cart = cartLineRepo.findById(cartId);
+		Products pro = productsRepo.findById(cart.getProdid());
+		pro.setQuantity(pro.getQuantity()-1);
+		int qauntity=cart.getQuantity()+1;
+		if(qauntity==0) {
+			cartLineRepo.deleteById(cartId);
+			return;
+		}
+		else
+		{
+		double price = qauntity * pro.getPrice();
+		userdao.updateQauntity(qauntity, price, cartId);
+		productsRepo.save(pro);
+		}
+		
+	}
 	
+	@Override
+	public void decreaseByOne(int cartId) {
+		CartLine cart = cartLineRepo.findById(cartId);
+		Products pro = productsRepo.findById(cart.getProdid());
+		pro.setQuantity(pro.getQuantity()+1);
+		int qauntity=cart.getQuantity()-1;
+		if(qauntity==0) {
+			cartLineRepo.deleteById(cartId);
+			return;
+		}
+		else
+		{
+		double price = qauntity * pro.getPrice();
+		userdao.updateQauntity(qauntity, price, cartId);
+		productsRepo.save(pro);
+		}
+		
+	}
+
+	@Override
+	public String totalAmonut(int id) {
+		List<CartLine> crat=cartLineRepo.findAllByUserid(id);
+		double d=0;
+		for (CartLine cartLine : crat) {
+			d=d+cartLine.getPrice();
+		}
+		String str=Double.toString(d);
+		return str;
+	}
 	
 }

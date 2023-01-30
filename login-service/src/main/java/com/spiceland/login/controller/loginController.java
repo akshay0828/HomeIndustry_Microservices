@@ -175,5 +175,8 @@ public class loginController {
 		service.deleteUser(id);
 		return "DisApproved";
 	}
-
+	@GetMapping("/customerDetails/{id}")
+	public User customerDetails(@PathVariable("id") int id){
+		return service.getUsername(id);
+	}
 }

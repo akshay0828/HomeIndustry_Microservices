@@ -195,10 +195,11 @@ public class UserDetailsServiceImpl
 			else if (role.equals(s3)) {
 //				System.out.println(user.isEnabled());
 				
-				if(u.isEnabled()){
+				
 				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
 						findUserPass(user.getUsername()))
 						&& user.getUsername().equals(findUser(user.getUsername()))) {
+					if(u.isEnabled()){
 
 					logger.debug(user.getUsername() + findUser(user.getUsername()));
 
@@ -208,12 +209,12 @@ public class UserDetailsServiceImpl
 				}
 				
 			else {
-					return "Invalid Username and Password";
+					return "Delivery Person Not Approved";
 
 				}
 				
 				}
-				return "Delivery Person Not Approved";
+				return "Invalid Username and Password";
 			}
 		}
 			catch (Exception n) {
@@ -347,5 +348,7 @@ public class UserDetailsServiceImpl
 		User u=userRepository.deleteById(id);
 		System.out.println(u);
 	}
+
+	
 
 }
