@@ -16,21 +16,25 @@ import com.spiceland.customer.entity.Orders;
 import com.spiceland.customer.entity.Payment;
 import com.spiceland.customer.entity.Products;
 import com.spiceland.customer.entity.User;
+import com.spiceland.customer.facade.UserDetailsFacade;
 import com.spiceland.customer.repo.CartLineRepo;
 import com.spiceland.customer.repo.OrdersRepo;
 import com.spiceland.customer.repo.PaymentRepo;
 import com.spiceland.customer.repo.ProductsRepo;
-import com.spiceland.customer.repo.UserRepo;
+
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
 public class CustomerServiceImpl implements CustomerService {
-	@Autowired
-	private UserRepo userRepo;
-
+//	@Autowired
+//	private User userRepo;
+////
 	@Autowired
 	private UserDAO userdao;
-
+	@Autowired
+	private UserDetailsFacade userDetailsFacade;
+	
+	
 	@Autowired
 	private ProductsRepo productsRepo;
 
@@ -43,17 +47,17 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private PaymentRepo paymentRepo;
 
-	@Override
-	public User getUser(int id) {
-		User u = userRepo.getById(id);
-		return u;
-	}
-
-	@Override
-	public void updateUser(User user) {
-		userdao.updateUserDao(user.getName(), user.getContact(), user.getAddress(), user.getArea(), user.getId());
-
-	}
+//	@Override
+//	public User getUser(int id) {
+//		User u = userRepo.getById(id);
+//		return u;
+//	}
+//
+//	@Override
+//	public void updateUser(User user) {
+//		userdao.updateUserDao(user.getName(), user.getContact(), user.getAddress(), user.getArea(), user.getId());
+//
+//	}
 
 	@Override
 	public List<Orders> getPreviousOrders(int id) {
@@ -102,16 +106,16 @@ public class CustomerServiceImpl implements CustomerService {
 		return productsRepo.findByProductName(pName);
 	}
 
-	@Override
-	public List<User> getVendorDetailsForProduct(String pName) {
-		List<Products> productDetails = getProductDetailsWithSameProductName(pName);
-		List<User> vendorDetails = new ArrayList<>();
-		for (Products products : productDetails) {
-			vendorDetails.add(products.getUser());
-		}
-
-		return vendorDetails;
-	}
+//	@Override
+//	public List<User> getVendorDetailsForProduct(String pName) {
+//		List<Products> productDetails = getProductDetailsWithSameProductName(pName);
+//		List<User> vendorDetails = new ArrayList<>();
+//		for (Products products : productDetails) {
+//			vendorDetails.add(products.getUser());
+//		}
+//
+//		return vendorDetails;
+//	}
 
 	@Override
 	public List<CartLine> getCartDetails(int customerId) {
@@ -119,10 +123,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return cart;
 	}
 
-	@Override
-	public List<User> getUsers() {
-		return userRepo.findAll();
-	}
+//	@Override
+//	public List<User> getUsers() {
+//		return userRepo.findAll();
+//	}
 
 	@Override
 	public void addToCart(int id, int productId, int qauntity) {
@@ -182,7 +186,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void paymentSucces(int customerId, Payment payment) {
 		Payment pay = paymentRepo.save(payment);
-		User u = getUser(customerId);
+		User u = userDetailsFacade.getUser(customerId);
 		ArrayList<String> cart = new ArrayList<>();
 		List<CartLine> customerCart = getCartDetails(customerId);
 		for (CartLine cartLine : customerCart) {
