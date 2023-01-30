@@ -50,14 +50,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 		http.authorizeRequests().antMatchers("/user/**").hasAnyAuthority("USER").antMatchers("/admin/**")
-				.hasAnyAuthority("ADMIN").antMatchers("/delivery/**").hasAnyAuthority("DELIVERY")
-				.antMatchers("/register", "/login", "/logout", "/index", "/forgotpassword", "/changepassword/**")
-				.permitAll();
+				.hasAnyAuthority("ADMIN").antMatchers("/delivery/**").hasAnyAuthority("DELIVERY");
+				//.antMatchers("/register", "/login", "/logout", "/index", "/forgotpassword", "/changepassword/**")
+			//	.permitAll();
 
-		http.authorizeRequests().and().formLogin().loginProcessingUrl("/login").loginPage("/login")
-				.successForwardUrl("/login").failureForwardUrl("/login").usernameParameter("username")
-				.passwordParameter("pass").permitAll().and().logout().permitAll().and().exceptionHandling()
-				.accessDeniedPage("/403");
+//		http.authorizeRequests().and().formLogin().loginProcessingUrl("/login").loginPage("/login")
+//				.successForwardUrl("/login").failureForwardUrl("/login").usernameParameter("username")
+//				.passwordParameter("pass").permitAll().and().logout().permitAll().and().exceptionHandling()
+//				.accessDeniedPage("/403");
 	}
 
 	@Override

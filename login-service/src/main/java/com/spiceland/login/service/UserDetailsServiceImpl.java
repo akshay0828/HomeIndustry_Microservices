@@ -1,6 +1,8 @@
 package com.spiceland.login.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,42 +13,46 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.spiceland.login.config.WebSecurityConfig;
 import com.spiceland.login.dao.UserDetailsDao;
 import com.spiceland.login.entity.MyUserDetails;
+import com.spiceland.login.entity.Role;
 import com.spiceland.login.entity.User;
+import com.spiceland.login.model.RegisterUserModel;
 import com.spiceland.login.repo.UserReopsitory;
 
-
-
 @Service
-@Transactional(propagation=Propagation.REQUIRED)
+@Transactional(propagation = Propagation.REQUIRED)
 public class UserDetailsServiceImpl
 		implements UserDetailsService, org.springframework.security.core.userdetails.UserDetailsService {
 
 	@Autowired
 	private UserReopsitory userRepository;
-	
+
 	@Autowired
 	private UserDetailsDao userdao;
 
-	
+	@Autowired
+	private RoleService roleService;
+
+	@Autowired
+	private WebSecurityConfig webSecurityConfig;
 
 	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-     
-	
+
 	@Override
 	public void forgotPassword(String username, String password) throws Exception {
 
 		userdao.forgotPasswordDao(username, password);
 
 	}
-	
-	
-	@Override
-	public void updateUser(User user,int id) {
-		userdao.updateUserDao(user.getName(), user.getEmail(), user.getContact(), user.getArea(), user.getAddress(),id);
 
-	} 	
+	@Override
+	public void updateUser(User user, int id) {
+		userdao.updateUserDao(user.getName(), user.getEmail(), user.getContact(), user.getArea(), user.getAddress(),
+				id);
+
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -69,9 +75,53 @@ public class UserDetailsServiceImpl
 
 	// Create the new user.
 	@Override
-	public void createUser(User user) {
-		logger.info("Creating New User");
-		userRepository.save(user);
+	public String createUser(RegisterUserModel registerUserModel) {
+		String u = findUser(registerUserModel.getUsername());
+
+		if (u == "false") {
+			logger.debug("Existence in database is false for " + u);
+			if (registerUserModel.getRole().equals("VENDOR") || registerUserModel.getRole().equals("DELIVERY")) {
+				User user = new User(registerUserModel.getName(), registerUserModel.getEmail(),
+						registerUserModel.getUsername(),
+						webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
+						registerUserModel.getAddress(), registerUserModel.getArea(), false,
+						registerUserModel.getContact(), registerUserModel.getRole());
+				Role role1 = roleService.getbyName(user.getRole());
+
+				Set<Role> roles = new HashSet<Role>();
+				roles.add(role1);
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>vendorrrr" + roles);
+				user.setRoles(roles);
+				logger.debug("Creating the user with details " + user);
+				// service.createUser(user);
+				logger.info("Creating New User");
+				userRepository.save(user);
+				// MyUserDetails use = new MyUserDetails(user);
+				return "success";
+			} else {
+				User user = new User(registerUserModel.getName(), registerUserModel.getEmail(),
+						registerUserModel.getUsername(),
+						webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
+						registerUserModel.getAddress(), registerUserModel.getArea(), true,
+						registerUserModel.getContact(), registerUserModel.getRole());
+
+				Role role1 = roleService.getbyName(user.getRole());
+
+				Set<Role> roles = new HashSet<Role>();
+				roles.add(role1);
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>" + roles);
+				user.setRoles(roles);
+				logger.debug("Creating the user with details " + user);
+				logger.info("Creating New User");
+				userRepository.save(user);
+				// MyUserDetails use = new MyUserDetails(user);
+				return "success";
+			}
+
+		}
+
+		return "Username Already Exists";
+
 	}
 
 	// To find whether user of that username is already register or not.
@@ -84,10 +134,97 @@ public class UserDetailsServiceImpl
 		return 0;
 	}
 
+	@Override
+	public String login(RegisterUserModel user) throws Exception{
+		String s1 = "VENDOR";
+		String s2 = "USER";
+		String s3 = "DELIVERY";
+		System.out.println("==========" + user.getUsername());
+
+		//String role1 = service.getrole(user.getUsername());
+		//System.out.println(role1);
+		try {
+			if ((user.getUsername().equals("admin")&&user.getPass().equals("admin"))){
+				return "ADMIN";
+			}
+
+			String role = getrole(user.getUsername());
+			System.out.println(role);
+			logger.debug("Logging with the role as " + role);
+			
+			 if (role.equals(s1)) {
+				 if(user.isEnabled()==true){
+
+				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
+						findUserPass(user.getUsername()))
+						&& user.getUsername().equals(findUser(user.getUsername()))) {
+
+					logger.debug(user.getUsername() + findUser(user.getUsername()));
+
+					
+
+					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
+					// return url = "redirect:/admin/adminhome/" + id;
+					return "VENDOR";
+				}
+				
+
+				 }
+				 return "Vendor Not Approved";
+			} else if (role.equals(s2)) {
+
+				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
+						findUserPass(user.getUsername()))
+						&& user.getUsername().equals(findUser(user.getUsername()))) {
+
+					logger.debug(user.getUsername() + findUser(user.getUsername()));
+
+					logger.debug("Successful");
+
+//					int id = service.getId(user.getUsername());
+					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
+
+					// return url = "redirect:/user/userhome/" + id;
+					return "USER";
+				}
+
+
+			}
+
+			else if (role.equals(s3)) {
+				if(user.isEnabled()==true){
+				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
+						findUserPass(user.getUsername()))
+						&& user.getUsername().equals(findUser(user.getUsername()))) {
+
+					logger.debug(user.getUsername() + findUser(user.getUsername()));
+
+					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
+					// return url = "redirect:/delivery/deliverhome/" + id;
+					return "DELIVERY";
+				}
+				
+			else {
+					return "Invalid Username and Password";
+
+				}
+				
+				}
+				return "Delivery Person Not Approved";
+			}
+		}
+			catch (Exception n) {
+			logger.error("Invalid credentials");
+			System.out.println(n);
+			return "Invalid Username and Password";
+		}
+		return "ADMIN";
+	}
+
 	// To get the roles of the user(admin,user,delivery person).
 	@Override
 	public String getrole(String username) {
-		logger.info("Fetching the role through username"+username);
+		logger.info("Fetching the role through username" + username);
 		User u = userRepository.findByUsername(username);
 		System.out.println(u);
 		logger.debug("The role of " + username + "is" + u.getRole());
@@ -161,8 +298,6 @@ public class UserDetailsServiceImpl
 		logger.debug("User with id=" + id + "is" + u);
 		return u;
 	}
-
-	
 
 	// List of the user by role.
 	@Override

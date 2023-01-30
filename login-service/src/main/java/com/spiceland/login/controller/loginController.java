@@ -1,8 +1,6 @@
 package com.spiceland.login.controller;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,49 +52,7 @@ public class loginController {
 
 	@PostMapping("/register")
 	public String registerUser(@RequestBody RegisterUserModel registerUserModel) {
-
-		String u = service.findUser(registerUserModel.getUsername());
-
-		if (u == "false") {
-			logger.debug("Existence in database is false for " + u);
-			if (registerUserModel.getRole().equals( "VENDOR") || registerUserModel.getRole().equals( "DELIVERY")) {
-				User user = new User(registerUserModel.getName(), registerUserModel.getEmail(),
-						registerUserModel.getUsername(),
-						webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
-						registerUserModel.getAddress(), registerUserModel.getArea(), false,
-						registerUserModel.getContact(), registerUserModel.getRole());
-				Role role1 = roleService.getbyName(user.getRole());
-
-				Set<Role> roles = new HashSet<Role>();
-				roles.add(role1);
-				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>vendorrrr" + roles);
-				user.setRoles(roles);
-				logger.debug("Creating the user with details " + user);
-				service.createUser(user);
-				// MyUserDetails use = new MyUserDetails(user);
-				return "success";
-			} else {
-				User user = new User(registerUserModel.getName(), registerUserModel.getEmail(),
-						registerUserModel.getUsername(),
-						webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
-						registerUserModel.getAddress(), registerUserModel.getArea(), true,
-						registerUserModel.getContact(), registerUserModel.getRole());
-
-				Role role1 = roleService.getbyName(user.getRole());
-
-				Set<Role> roles = new HashSet<Role>();
-				roles.add(role1);
-				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>" + roles);
-				user.setRoles(roles);
-				logger.debug("Creating the user with details " + user);
-				service.createUser(user);
-				// MyUserDetails use = new MyUserDetails(user);
-				return "success";
-			}
-
-		}
-
-		return "Username Already Exists";
+			return service.createUser(registerUserModel);
 	}
 
 	/*
@@ -105,90 +61,9 @@ public class loginController {
 	 * seller/admin dashboard else it will display the error message.
 	 */
 	@PostMapping("/login")
-
-	public String loginUser(@RequestBody RegisterUserModel user) throws Exception {
-		String s1 = "VENDOR";
-		String s2 = "USER";
-		String s3 = "DELIVERY";
-		System.out.println("==========" + user.getUsername());
-
-		//String role1 = service.getrole(user.getUsername());
-		//System.out.println(role1);
-		try {
-			if ((user.getUsername().equals("admin")&&user.getPass().equals("admin"))){
-				return "ADMIN";
-			}
-
-			String role = service.getrole(user.getUsername());
-			System.out.println(role);
-			logger.debug("Logging with the role as " + role);
-			
-			 if (role.equals(s1)) {
-
-				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
-						service.findUserPass(user.getUsername()))
-						&& user.getUsername().equals(service.findUser(user.getUsername()))) {
-
-					logger.debug(user.getUsername() + service.findUser(user.getUsername()));
-
-					int id = service.getId(user.getUsername());
-
-					uid = id;
-
-					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
-					// return url = "redirect:/admin/adminhome/" + id;
-					return "VENDOR";
-				}
-
-
-
-			} else if (role.equals(s2)) {
-
-				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
-						service.findUserPass(user.getUsername()))
-						&& user.getUsername().equals(service.findUser(user.getUsername()))) {
-
-					logger.debug(user.getUsername() + service.findUser(user.getUsername()));
-
-					logger.debug("Successful");
-
-					int id = service.getId(user.getUsername());
-					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
-
-					// return url = "redirect:/user/userhome/" + id;
-					return "USER";
-				}
-
-
-			}
-
-			else if (role.equals(s3)) {
-
-				if (webSecurityConfig.passwordEncoder().matches((user.getPass()),
-						service.findUserPass(user.getUsername()))
-						&& user.getUsername().equals(service.findUser(user.getUsername()))) {
-
-					logger.debug(user.getUsername() + service.findUser(user.getUsername()));
-
-					int id = service.getId(user.getUsername());
-					logger.debug(user.getUsername() + "has successfully logged-in as " + role);
-					// return url = "redirect:/delivery/deliverhome/" + id;
-					return "DELIVERY";
-				}
-
-			}
-			else {
-					return "Invalid Username and Password";
-
-				}
-
-
-		} catch (Exception n) {
-			logger.error("Invalid credentials");
-			System.out.println(n);
-			return "Invalid Username and Password";
-		}
-		return "ADMIN";
+	public String loginUser(@RequestBody RegisterUserModel user) throws Exception{
+		return service.login(user);
+		
 	}
 
 	@GetMapping("/login/{username}")
