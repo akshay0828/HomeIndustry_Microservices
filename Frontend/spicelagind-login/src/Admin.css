@@ -6,28 +6,32 @@
 }
 
 .admin{
-  color: aliceblue;
-  font-size: 190%;
+  color: rgb(18, 19, 20);
+  font-size: 150%;
   margin-top: -5%;
 }
 
+.adminlogout{
+  margin-top: 50%;
+  /* height: 30%; */
+}
 
-.third {
+/* .third {
 	border-color: 2px white;
 	color: rgb(7, 7, 7);
 	transition: all 150ms ease-in-out;
-}
+} */
 
-.third:hover {
+/* .third:hover {
 	box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
-}
+} */
 
-.btn {
+.btn1 {
 	
-	background-color: rgb(255, 247, 247);
-	border: 1px solid white;
+	background-color: rgb(251, 245, 245);
+	border: 1px solid rgb(255, 244, 244);
 	border-radius: 0.9em;
-	color: rgb(255, 250, 250);
+	color: rgb(42, 220, 63);
 	
 	font-size: 1rem;
 	font-weight: 500;
@@ -39,10 +43,12 @@
 	font-weight: 500;
 }
 
-.btn:hover, .btn:focus {
+
+
+/* .btn:hover, .btn:focus {
 	color: rgb(0, 0, 0);
 	outline: 0;
-}
+} */
 
 .App-header1 {
   background-color: #0a0a0a;

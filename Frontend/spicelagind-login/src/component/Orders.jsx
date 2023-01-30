@@ -8,8 +8,8 @@ function OrdersComponent({ orders }) {
 
   const {id}=useParams();
  
-  function handleClick() {
-    axios.put('http://localhost:9004/api/delivery/updateStatus/711', {
+  function handleClick(oid,ouid) {
+    axios.put('http://localhost:9004/api/delivery/updateStatus/'+oid, {
       status: 'ACCEPTED'
     })
     .then(response => {
@@ -18,6 +18,8 @@ function OrdersComponent({ orders }) {
     .catch(error => {
       console.log(error);
     });
+
+    window.location=("/orderDetails/"+id+"/"+ouid+"/"+oid);
   }
 
   return (
@@ -30,8 +32,10 @@ function OrdersComponent({ orders }) {
           <p className='space'>Area -{order.area}</p>
           
           {/* <Link to={'/orderDetails/625/2'}> */}
-            <Link to={`/orderDetails/${id}/${order.userId}`}>
-          <button onClick={handleClick} className='space_btn'>Accept Order</button></Link>
+            {/* <Link to={`/orderDetails/${id}/${order.userId}`}>
+          <button onClick={()=>handleClick(order.id)}> className='space_btn'>Accept Order</button></Link> */}
+
+          <button onClick={()=>handleClick(order.id,order.userId)}>Accept Order</button>
         </div>
       ))}
     </div>

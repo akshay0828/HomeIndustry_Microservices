@@ -6,49 +6,16 @@ class Registration extends React.Component{
 
     constructor(props){
         super(props);
-        // this.state= this.initiaLSTATE;
+       
         this.state={
-          // roles:[],
+     
         };
         
     }
 
-  //   login(){
-  //     return this.props.history.push("/");
-  // }
+  
+    handlesubmit=()=>{
 
-
-    // initiaLSTATE={
-    //     id:"",
-    //     name:"",
-    //     username:"",
-    //     email:"",
-    //     contact:"",
-    //     pass:"",
-    //     cnfmpass:"",
-    //     address:"",
-    //     area:"",
-    //     role:"",
-    // };
-    // componentDidMount() {
-    //   let initialroles = [];
-    //   fetch('http://localhost:9001/api/loginservice/role')
-    //     .then(response => {
-    //         return response.json();
-    //       }).then(data => {
-    //       initialroles = data.results && data.results.map((role) => {
-    //           return role
-    //     //  console.log(role)
-    // });
-    // then(Response => Response.data).then((data)=>{this.setState({hospitals:data})});
-  //         console.log(initialroles);
-  //         this.setState({
-  //           role:data,
-  //         });
-  //     });
-  // }
-    handlesubmit=(event)=>{
-      // event.preventDefault()
 
         const user={
             name:this.state.name,
@@ -67,7 +34,7 @@ class Registration extends React.Component{
             // alert("hi")
             axios.post("http://localhost:9001/api/loginservice/register",user).then(response => {
                 if(response.data==="Username Already Exists"){
-                    this.setState(this.initiaLSTATE);
+     
                     alert("Username Already Exists"); 
                     window.location.reload();
                 }
@@ -76,8 +43,7 @@ class Registration extends React.Component{
                 }
               } )
 
-            // axios.post("http://localhost:9001/api/loginservice/register",user).then(response=>alert(response.data))
-            // alert("hii")
+ 
          }
          else{
             alert("password and confirm password mismatch");
@@ -90,10 +56,7 @@ class Registration extends React.Component{
         })
       }
     render(){
-      // let role=this.state.role;
-      // let optionItems = role && role.map((role) =>
-      //           <option key={role.name} value={role.name}>{role.name}</option>
-      //       );
+    
 
         return(
             <React.Fragment>
@@ -117,19 +80,15 @@ class Registration extends React.Component{
              <select id="vehicleList" name="role" required onChange={this.onInputChange}>
                                   
                       <option value="" disabled selected>Select Your Role</option> 
-                       {/* <option value="ADMIN" >ADMIN</option>  */}
                       <option value="VENDOR">VENDOR</option>
                       <option value="USER">USER</option>
                       <option value="DELIVERY">DELIVERY</option>
-                        {/* <c:forEach var="v" items="${roleval}"> */}
-                          {/* <option id="aa" ></option> */}
-                        {/* </c:forEach>	 */}
-                        {/* {optionItems} */}
+                       
 
                </select>
                
                 <input type="submit"  onClick={this.handlesubmit} className='submit' value="Submit and Back to Login" ></input> 
-               {/* <input type="submit" className='submit' value="cancel"></input> */}
+             
                </Form>
                </React.Fragment>
              

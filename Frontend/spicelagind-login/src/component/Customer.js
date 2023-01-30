@@ -3,15 +3,13 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import {
     Card,
-    Table,
-    Image,
-    ButtonGroup,
-    Button,
-    InputGroup,
-    FormControl,
   } from "react-bootstrap";
   import axios from "axios";
-
+  import { useParams } from "react-router";
+  
+  function withParams(Component) {
+    return props => <Component {...props} params={useParams()} />;
+   }
 
 class Customer extends React.Component{
 
@@ -25,18 +23,21 @@ class Customer extends React.Component{
 
     componentDidMount(){
        
-        axios.get("http://localhost:9000/api/customer/getProducts").then(Response =>(Response.data)) .then((data)=>{this.setState({products:data})});
+        axios.get("http://localhost:9003/api/customer/getProducts").then(Response =>(Response.data)) .then((data)=>{this.setState({products:data})});
           
    
     }
-
+    handlesubmit(productName){
+        let {id}=this.props.params;
+        window.location="/customer/"+id+"/productdetails/"+productName;
+    }
     
     render(){
         return(
            
             <div className="table">
         <Card className={"border border-dark bg-b=dark text-white"}>
-        <Card.Header className={"heading"}>Payment Details</Card.Header>
+        <Card.Header className={"heading"}>Product Details</Card.Header>
          <Card.Body>
        
         {
@@ -61,7 +62,7 @@ class Customer extends React.Component{
         <div class="card-read-more">
           
            
-           <button type="submit" onClick={`/productdetails/${product.productName}`}>ADD TO CART</button>
+           <button type="submit" onClick={()=>this.handlesubmit(product.productName)}>View Product Details</button>
            
 
         </div>
@@ -79,4 +80,4 @@ class Customer extends React.Component{
     
 }
 }
-export default Customer;
+export default withParams(Customer);

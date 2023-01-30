@@ -18,13 +18,12 @@ class Login extends React.Component{
         event.preventDefault()
         
 
-         alert(this.state.username)
         const user={
             username:this.state.username,
             pass:this.state.pass
         }
         console.log("hii");
-        axios.post('http://localhost:9001/api/loginservice/login/',user).then(Response=>{
+        axios.post("http://localhost:9001/api/loginservice/login/",user).then(Response=>{
             alert(Response.data);
       
            
@@ -37,23 +36,31 @@ class Login extends React.Component{
             else if(Response.data==="USER"){
                 axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  
                     const id=response.data;
-                    alert(id);
-                window.location="/user/"+id;
+                    // alert(id);
+                window.location="/customer/"+id;
             })
             }
             else if(Response.data==="VENDOR"){
                 axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  
                     const id=response.data;
-                    alert(id);
+                    // alert(id);
                 window.location="/vendor/"+id;
             })
             }
             else if(Response.data==="DELIVERY"){
                 axios.get("http://localhost:9001/api/loginservice/login/"+user.username).then(response => {  
                     const id=response.data;
-                    alert(id);
+                    // alert(id);
                 window.location="/delivery/"+id;
             })
+            }
+            else if(Response.data==="Delivery Person Not Approved"){
+                alert("Delivery Person Not Approved");
+                window.location.reload();
+            }
+            else if(Response.data==="Vendor Not Approved"){
+                alert("Vendor Not Approved");
+                window.location.reload();
             }
             else{
                 alert("login failed")

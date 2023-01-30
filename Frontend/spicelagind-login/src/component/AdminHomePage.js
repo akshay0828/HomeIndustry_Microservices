@@ -4,6 +4,8 @@ import CardHeader from "react-bootstrap/esm/CardHeader";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import {Navbar,Nav} from 'react-bootstrap';
+import Vieworders from "./Vieworders";
+
 
 
 
@@ -12,15 +14,15 @@ class AdminHomePage extends React.Component{
     render(){
        
         return(
-          <p>
+          <p> <Navbar className="adminlogout" bg="dark" variant="dark">
+          <Navbar.Brand href="/" className="logout">Logout</Navbar.Brand>
+          </Navbar>
                 <p className="App1">
-                <Navbar  bg="dark" variant="dark">
-                <Navbar.Brand href="/" className="logout">Logout</Navbar.Brand>
-                </Navbar>
+               
                 <header className="App-header1">
              
-         <p className="admin">
-            Welcome Admin</p>
+         <p className="admin"><center>Welcome Admin</center>
+            </p>
         <br/>    <br/>    <br/>    <br/>    
             <div class="container-fluid">
 			<div class="row justify-content-center">
@@ -52,7 +54,7 @@ class AdminHomePage extends React.Component{
       
         <br/>
       
-        <button> <Link to="/viewOrders">View</Link></button>
+        <button> <Link to="/Vieworders">View</Link></button>
       </Card.Body>
     </Card>
     </div>

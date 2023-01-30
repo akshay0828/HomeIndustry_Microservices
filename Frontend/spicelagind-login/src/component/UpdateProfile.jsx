@@ -59,8 +59,7 @@ function UpdateProfile() {
         try {
 
            
-            const result = axios.post("http://localhost:9000/api/vendor/update/"+id+"?name="+document.getElementById('name').value+"&email=aksay@gmail.com&username=akshay&address=qw&area=jpNagar&contact=123456789");
-          
+            const result = axios.post("http://localhost:9000/api/vendor/update/"+id+"?name="+document.getElementById('name').value+"&email="+document.getElementById('email').value+"&username="+document.getElementById('username').value+"&address="+document.getElementById('address').value+"&area="+document.getElementById('area').value+"&contact="+document.getElementById('contact').value);
 
            
 

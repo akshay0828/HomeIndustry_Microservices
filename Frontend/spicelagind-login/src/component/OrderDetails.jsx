@@ -8,11 +8,13 @@ import './OrderDetails.css';
 
 
 function OrderDetails() {
-
+  const {cus_id}=useParams();
+  const {oid}=useParams();
+  const {id}=useParams();
 
 
   function handleClick() {
-    axios.put('http://localhost:9004/api/delivery/updateStatus/711', {
+    axios.put('http://localhost:9004/api/delivery/updateStatus/'+oid, {
       status: 'DELIVERED'
     })
       .then(response => {
@@ -22,13 +24,11 @@ function OrderDetails() {
         console.log(error);
       });
   }
-  const {cus_id}=useParams();
-  const {ven_id}=useParams();
-
+  
   const [data, setData] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:9004/api/delivery/acceptOrder/1/635");
+      const response = await fetch("http://localhost:9004/api/delivery/acceptOrder/"+id+"/"+cus_id);
       const json = await response.json();
       setData(json);
     }
