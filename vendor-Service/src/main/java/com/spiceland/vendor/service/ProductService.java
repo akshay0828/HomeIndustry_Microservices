@@ -31,6 +31,10 @@ public interface ProductService {
 
 	List<Products> searchForProduct(String search);
 
+	List<Products> getProductDetailsWithSameProductName(String pName);
+
+	List<User> getVendorDetailsForProduct(String pName);
+
 	
 	
 

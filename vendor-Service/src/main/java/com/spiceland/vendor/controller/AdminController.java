@@ -40,7 +40,7 @@ import com.spiceland.vendor.service.ProductService;
 
 @RestController
 @RequestMapping("/api/vendor")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://192.168.141.36:3000")
 public class AdminController {
 
 	@Autowired
@@ -257,5 +257,22 @@ public void update(@PathVariable int id, @RequestParam("name") String name,@Requ
 	
 	fasade.updateUser(user,id);
 }
+
+@GetMapping("/vendorDetailsForSpecificProduct/{productName}")
+public List<User> vendorDetailsForSpecificProduct(@PathVariable("productName") String pName){
+return productservice.getVendorDetailsForProduct(pName);
+}
+
+@GetMapping("/vendorList")
+public List<User> vendorList(){
+	
+	List<User> vendor =fasade.vendorList();
+	if (!vendor.isEmpty()) {
+	    User firstVendor = vendor.get(0);
+	System.out.println(">>>>>>>>>>>>>>"+firstVendor);
+	}
+return fasade.vendorList();
+}
+
 	
 }

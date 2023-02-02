@@ -85,10 +85,10 @@ public class Products {
 		/*this.image = image;*/
 	}
 
-	public Products(int id, String productName, double price, float weight, String productDescription, int quantity,
-			String image, User user) {
+	public Products(String productName, double price, float weight, String productDescription, int quantity,
+			User user) {
 		super();
-		this.id = id;
+		
 		this.productName = productName;
 		this.price = price;
 		this.weight = weight;
