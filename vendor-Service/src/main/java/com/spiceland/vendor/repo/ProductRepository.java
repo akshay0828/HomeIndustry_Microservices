@@ -24,6 +24,8 @@ public interface ProductRepository extends JpaRepository<Products, Integer> {
 	List<Integer> findUseridByproductName(String productName);
 	
 	Products findByIdAndUser(int id,User user);
+
+	List<Products> findByProductName(String pName);
 	
 	/*@Query("SELECT product_name FROM products p WHERE id=402")
 	String searchProducts();*/

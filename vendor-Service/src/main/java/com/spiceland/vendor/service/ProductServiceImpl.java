@@ -1,5 +1,6 @@
 package com.spiceland.vendor.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,13 +15,12 @@ import com.spiceland.vendor.entity.Products;
 import com.spiceland.vendor.entity.User;
 import com.spiceland.vendor.repo.ProductRepository;
 
-
 @Service
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private ProductDao productdao;
 
@@ -28,16 +28,14 @@ public class ProductServiceImpl implements ProductService {
 	// LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-	
+
 	@Override
-	public void  productUpdate(Products pro,int id) throws Exception {
-		
-		productdao.productUpdateDao(pro.getProductName(), pro.getPrice(), pro.getWeight(), pro.getQuantity(), pro.getProductDescription(), id);
-		
-		
-		
+	public void productUpdate(Products pro, int id) throws Exception {
+
+		productdao.productUpdateDao(pro.getProductName(), pro.getPrice(), pro.getWeight(), pro.getQuantity(),
+				pro.getProductDescription(), id);
+
 	}
-	
 
 	// To create the new product.
 	@Override
@@ -66,17 +64,18 @@ public class ProductServiceImpl implements ProductService {
 		logger.debug("products are " + prods);
 		return prods;
 	}
+
 	// To delete the product.
-		@Override
-		public void deleteProduct(int id) {
-			productdao.deleteProductDao(id);
-		}
-		
-		@Override
-		public List<Products> searchForProduct(String search) {
-			
-		return 	productdao.searchForProductDao(search);
-		}
+	@Override
+	public void deleteProduct(int id) {
+		productdao.deleteProductDao(id);
+	}
+
+	@Override
+	public List<Products> searchForProduct(String search) {
+
+		return productdao.searchForProductDao(search);
+	}
 
 	// To update the existing product.
 	@Override
@@ -109,11 +108,25 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByproductName(productName);
 	}
 
-	
 	public List<Integer> getuseridbyproductname(String productName) {
 
 		return productRepository.findUseridByproductName(productName);
 	}
 
-	
+	@Override
+	public List<Products> getProductDetailsWithSameProductName(String pName) {
+		return productRepository.findByProductName(pName);
+		}
+
+
+	@Override
+	public List<User> getVendorDetailsForProduct(String pName) {
+		 List<Products> productDetails = getProductDetailsWithSameProductName(pName);
+		 List<User> vendorDetails = new ArrayList<>();
+		 for (Products products : productDetails) {
+			 vendorDetails.add(products.getUser());
+		 }
+		 return vendorDetails;
+	}
+
 }

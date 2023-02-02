@@ -29,8 +29,8 @@ public class UserDetailsFasade {
 		
 	}
 	
-	public User getuser(int id){
-		return restTemplate.getForObject(PRODUCT_URL+"/"+id, User.class);
+	public List<User> vendorList(){
+		return Arrays.asList(restTemplate.getForObject(PRODUCT_URL+"/vendorList", User[].class));
 		
 	}
 	
