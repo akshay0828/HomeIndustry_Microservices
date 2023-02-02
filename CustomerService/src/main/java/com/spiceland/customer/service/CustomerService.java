@@ -44,5 +44,7 @@ public interface CustomerService {
 
 	void increaseByOne(int cartId);
 
+	List<Orders> getallOrdersUser(int id);
+
 
 }

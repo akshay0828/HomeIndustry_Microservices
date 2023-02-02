@@ -3,6 +3,7 @@ package com.spiceland.customer.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,10 @@ public class CustomerServiceImpl implements CustomerService {
 //		userdao.updateUserDao(user.getName(), user.getContact(), user.getAddress(), user.getArea(), user.getId());
 //
 //	}
+	
+	public int getrandom() {
+		return ((int)(Math.random() * 100000)) % 1000;
+	}
 
 	@Override
 	public List<Orders> getPreviousOrders(int id) {
@@ -106,16 +111,6 @@ public class CustomerServiceImpl implements CustomerService {
 		return productsRepo.findByProductName(pName);
 	}
 
-//	@Override
-//	public List<User> getVendorDetailsForProduct(String pName) {
-//		List<Products> productDetails = getProductDetailsWithSameProductName(pName);
-//		List<User> vendorDetails = new ArrayList<>();
-//		for (Products products : productDetails) {
-//			vendorDetails.add(products.getUser());
-//		}
-//
-//		return vendorDetails;
-//	}
 
 	@Override
 	public List<CartLine> getCartDetails(int customerId) {
@@ -123,10 +118,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return cart;
 	}
 
-//	@Override
-//	public List<User> getUsers() {
-//		return userRepo.findAll();
-//	}
+
 
 	@Override
 	public void addToCart(int id, int productId, int qauntity) {
@@ -177,7 +169,6 @@ public class CustomerServiceImpl implements CustomerService {
 		CartLine cart = cartLineRepo.findById(cartId);
 		Products pro = productsRepo.findById(cart.getProdid());
 		pro.setQuantity(pro.getQuantity()+cart.getQuantity()-qauntity);
-//		pro.setQuantity(qauntity);
 		double price = qauntity * pro.getPrice();
 		userdao.updateQauntity(qauntity, price, cartId);
 		productsRepo.save(pro);
@@ -185,6 +176,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void paymentSucces(int customerId, Payment payment) {
+		String date1=LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMhhmm"));
+		int i=getrandom();
+		String transID="HI"+date1+i;
+		payment.setTranzactinId(transID);
 		Payment pay = paymentRepo.save(payment);
 		User u = userDetailsFacade.getUser(customerId);
 		ArrayList<String> cart = new ArrayList<>();
@@ -263,6 +258,11 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		String str=Double.toString(d);
 		return str;
+	}
+
+	@Override
+	public List<Orders> getallOrdersUser(int id) {
+		return ordersRepo.findByUserId(id);
 	}
 	
 }

@@ -2,8 +2,9 @@ package com.spiceland.customer.controller;
 
 import java.util.List;
 
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,17 +41,10 @@ public class CustomerContoller {
 		return userDetailsFacade.getUser(id);
 	}
 
-	// @GetMapping("/customerDetails")
-	// public List<User> customerDetails(){
-	// return customerService.getUsers();
-	// }
-	//
-	// @GetMapping("/getProducts")
-	// public List<Products> getProducts(){
-	//
-	// return customerService.getproducts();
-	//
-	// }
+	@GetMapping("/GetAllOrdersOfUsers/{id}")
+	public List<Orders> getAllOrdersOfUsers(@PathVariable("id") int id){
+		return customerService.getallOrdersUser(id);
+	}
 
 	@GetMapping("/getProducts")
 	public List<Products> getProducts() {
@@ -64,30 +58,22 @@ public class CustomerContoller {
 		return customerService.searchForProduct(search);
 	}
 
-	// @PutMapping("/UpdateCustomer/{id}")
-	// public void deliveryDataPerson(@RequestBody User user,
-	// @PathVariable("id") int id, Model model) {
-	//
-	//
-	//
-	// customerService.updateUser(user);
-	// }
+	
 
 	@GetMapping("/PreviousOrders/{id}")
-	public List<Orders> previousOrders(@PathVariable("id") int id, Model model) {
-		model.addAttribute("orders", customerService.getPreviousOrders(id));
-		model.addAttribute("id", id);
+	public List<Orders> previousOrders(@PathVariable("id") int id) {
+		
 		return customerService.getPreviousOrders(id);
 	}
 
 	@GetMapping("/SpecificProduct/{productName}")
-	public List<Products> specificProduct(@PathVariable("productName") String pName, Model model) {
+	public List<Products> specificProduct(@PathVariable("productName") String pName) {
 
 		return customerService.getProductDetailsWithSameProductName(pName);
 	}
 
 	@GetMapping("/vendorDetailsForSpecificProduct/{productName}")
-	public List<User> vendorDetailsForSpecificProduct(@PathVariable("productName") String pName, Model model) {
+	public List<User> vendorDetailsForSpecificProduct(@PathVariable("productName") String pName) {
 		return productsFacade.getVendorDetailsForProduct(pName);
 	}
 
@@ -100,9 +86,9 @@ public class CustomerContoller {
 	}
 
 	@GetMapping("/CartDetails/{id}")
-	public List<CartLine> cartDetails(@PathVariable("id") int customerId, Model model) {
+	public List<CartLine> cartDetails(@PathVariable("id") int customerId) {
 
-		model.addAttribute("cart", customerService.getCartDetails(customerId));
+//		model.addAttribute("cart", customerService.getCartDetails(customerId));
 		return customerService.getCartDetails(customerId);
 	}
 
