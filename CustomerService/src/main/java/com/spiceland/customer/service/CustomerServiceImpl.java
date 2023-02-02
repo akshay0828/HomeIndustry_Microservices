@@ -3,7 +3,6 @@ package com.spiceland.customer.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,27 +47,12 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private PaymentRepo paymentRepo;
 
-//	@Override
-//	public User getUser(int id) {
-//		User u = userRepo.getById(id);
-//		return u;
-//	}
-//
-//	@Override
-//	public void updateUser(User user) {
-//		userdao.updateUserDao(user.getName(), user.getContact(), user.getAddress(), user.getArea(), user.getId());
-//
-//	}
+
 	
 	public int getrandom() {
 		return ((int)(Math.random() * 100000)) % 1000;
 	}
 
-	@Override
-	public List<Orders> getPreviousOrders(int id) {
-		return ordersRepo.findByUserId(id);
-
-	}
 
 	@Override
 	public List<Products> getproducts() {
@@ -88,7 +72,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 		}
 		System.out.println("==========" + pro);
-//		return productsRepo.findAll();
 		return pro;
 	}
 
@@ -102,7 +85,6 @@ public class CustomerServiceImpl implements CustomerService {
 				prod.add(products);
 			}
 		}
-//		,BeanPropertyRowMapper.newInstance(Products.class)
 		return prod;
 	}
 
@@ -264,5 +246,15 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<Orders> getallOrdersUser(int id) {
 		return ordersRepo.findByUserId(id);
 	}
+
+	@Override
+	public List<Orders> getPreviousOrdersAndNotDelivered(int id) {
+		return ordersRepo.findByUserIdAndStatusNot(id,"DELIVERED");
+	}
 	
+	@Override
+	public List<Orders> getPreviousOrdersAndDelivered(int id) {
+		return ordersRepo.findByUserIdAndStatus(id,"DELIVERED");
+		
+	}
 }

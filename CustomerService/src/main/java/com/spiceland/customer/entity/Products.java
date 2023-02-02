@@ -123,7 +123,7 @@ public class Products {
         this.productDescription = productDescription;
         this.quantity = quantity;
         this.image = image;
-        this.eimage = eimage;
+//        this.eimage = eimage;
         this.user = user;
     }
 

@@ -6,7 +6,6 @@ import com.spiceland.customer.entity.CartLine;
 import com.spiceland.customer.entity.Orders;
 import com.spiceland.customer.entity.Payment;
 import com.spiceland.customer.entity.Products;
-import com.spiceland.customer.entity.User;
 
 public interface CustomerService {
 
@@ -14,7 +13,7 @@ public interface CustomerService {
 
 //	void updateUser(User user);
 
-	List<Orders> getPreviousOrders(int id);
+	List<Orders> getPreviousOrdersAndDelivered(int id);
 
 	List<Products> getproducts();
 
@@ -45,6 +44,8 @@ public interface CustomerService {
 	void increaseByOne(int cartId);
 
 	List<Orders> getallOrdersUser(int id);
+
+	List<Orders> getPreviousOrdersAndNotDelivered(int id);
 
 
 }

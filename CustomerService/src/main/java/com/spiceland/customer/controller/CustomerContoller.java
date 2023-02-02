@@ -2,8 +2,6 @@ package com.spiceland.customer.controller;
 
 import java.util.List;
 
-import javax.ws.rs.Path;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,10 +58,16 @@ public class CustomerContoller {
 
 	
 
-	@GetMapping("/PreviousOrders/{id}")
-	public List<Orders> previousOrders(@PathVariable("id") int id) {
+	@GetMapping("/PreviousOrdersAndDelvivered/{id}")
+	public List<Orders> previousOrdersAndDelvivered(@PathVariable("id") int id) {
 		
-		return customerService.getPreviousOrders(id);
+		return customerService.getPreviousOrdersAndDelivered(id);
+	}
+	
+	@GetMapping("/PreviousOrdersAndNotDelvivered/{id}")
+	public List<Orders> previousOrdersAndNOtDelvivered(@PathVariable("id") int id) {
+		
+		return customerService.getPreviousOrdersAndNotDelivered(id);
 	}
 
 	@GetMapping("/SpecificProduct/{productName}")

@@ -11,5 +11,7 @@ import com.spiceland.customer.entity.Orders;
 public interface OrdersRepo extends JpaRepository<Orders, Integer> {
 	
 	List<Orders> findByUserId(int id);
+	List<Orders> findByUserIdAndStatus(int id,String status);
+	List<Orders> findByUserIdAndStatusNot(int id,String status);
 
 }
