@@ -22,7 +22,7 @@ import com.spiceland.customer.facade.UserDetailsFacade;
 import com.spiceland.customer.service.CustomerService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/customer")
 public class CustomerContoller {
 
