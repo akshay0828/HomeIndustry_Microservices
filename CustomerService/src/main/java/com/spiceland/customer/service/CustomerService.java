@@ -47,5 +47,7 @@ public interface CustomerService {
 
 	List<Orders> getPreviousOrdersAndNotDelivered(int id);
 
+	int qauntityLeft(int pid);
+
 
 }

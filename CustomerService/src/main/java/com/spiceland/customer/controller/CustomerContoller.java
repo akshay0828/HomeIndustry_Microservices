@@ -134,4 +134,11 @@ public class CustomerContoller {
 //		return customerService.totalAmonut(id);
 		return customerService.totalAmonut(id);
 		}
+	
+	@GetMapping("/qauntityLeft/{productId}")
+	public int qauntityLeft(@PathVariable("productId") int pid) {
+		return customerService.qauntityLeft(pid);
+		
+	}
+	
 }

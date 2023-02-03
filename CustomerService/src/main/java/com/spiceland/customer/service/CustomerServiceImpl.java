@@ -257,4 +257,12 @@ public class CustomerServiceImpl implements CustomerService {
 		return ordersRepo.findByUserIdAndStatus(id,"DELIVERED");
 		
 	}
+
+
+	@Override
+	public int qauntityLeft(int pid) {
+		Products p= productsRepo.findById(pid);
+		return p.getQuantity();
+	}
+	
 }
