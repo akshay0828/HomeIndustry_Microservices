@@ -15,7 +15,6 @@ public class DeliveryServiceApplication {
 	}
 
 	@Bean
-	//@LoadBalanced
 	public RestTemplate restTemplete() {
 		return new RestTemplate();
 		

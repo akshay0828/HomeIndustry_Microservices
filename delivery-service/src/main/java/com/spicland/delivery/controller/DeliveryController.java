@@ -28,10 +28,6 @@ import com.spicland.delivery.service.OrderService;
 @RequestMapping("/api/delivery")
 @CrossOrigin("http://localhost:3000")
 public class DeliveryController {
-
-	@Autowired
-	private com.spicland.delivery.service.UserDetailsService service;
-
 	@Autowired
 	private OrderService orderService;
 	
@@ -94,8 +90,8 @@ public class DeliveryController {
 	
 	@GetMapping("/acceptOrder/{vendor_id}/{customer_id}")
 	public List<String> getAddressDetails(@PathVariable("vendor_id") int vendor_id,@PathVariable("customer_id") int cust_id){
-		User vendor=service.getuser(vendor_id);
-		User customer=service.getuser(cust_id);
+		User vendor=facade.getuser(vendor_id);
+		User customer=facade.getuser(cust_id);
 		String vendor_add=vendor.getAddress();
 		String cust_add=customer.getAddress();
 		ArrayList<String> address = new ArrayList<>();
