@@ -104,11 +104,6 @@ _The main hours spent on the project for each person is expected to be ~30(?) ho
 3.	https://github.com/akshay0828/Valtech-miniProject-Spice-Land/blob/main/DOCUMENTATION.pdf <br/>
        
        
-Snaps:
-
-![Home_Page](https://github.com/akshay0828/Valtech-miniProject-Spice-Land/blob/main/Snaps/Home-1.png)
-
-![Menu](https://github.com/akshay0828/Valtech-miniProject-Spice-Land/blob/main/Snaps/Customer/Screenshot%20(33).png)
 
 
 Agile Retrospective Meeting...
