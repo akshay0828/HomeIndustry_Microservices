@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spiceland.login.config.WebSecurityConfig;
 import com.spiceland.login.entity.Role;
 import com.spiceland.login.entity.User;
-import com.spiceland.login.model.RegisterUserModel;
 import com.spiceland.login.service.RoleService;
 import com.spiceland.login.service.UserDetailsService;
 
@@ -52,8 +51,9 @@ public class loginController {
 	 */
 
 	@PostMapping("/register")
-	public String registerUser(@RequestBody RegisterUserModel registerUserModel) {
-			return service.createUser(registerUserModel);
+	public String registerUser(@RequestBody User user) {
+		System.out.println("kkkkkkkkk "+user);
+			return service.createUser(user);
 	}
 
 	/*
@@ -62,7 +62,7 @@ public class loginController {
 	 * seller/admin dashboard else it will display the error message.
 	 */
 	@PostMapping("/login")
-	public String loginUser(@RequestBody RegisterUserModel user) throws Exception{
+	public String loginUser(@RequestBody User user) throws Exception{
 		return service.login(user);
 		
 	}
