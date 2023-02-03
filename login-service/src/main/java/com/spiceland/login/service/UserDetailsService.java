@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.spiceland.login.entity.User;
-import com.spiceland.login.model.RegisterUserModel;
 
 
 
@@ -16,7 +15,7 @@ public interface UserDetailsService {
 	void resetUser();
 
 //	// Create the new user.
-//	void createUser(User user);
+	String createUser(User user);
 
 	// To find whether user of that username is already register or not.
 	int LoginValidator(String username);
@@ -58,9 +57,9 @@ public interface UserDetailsService {
 	void updateUser(User user, int id);
 
 
-	String createUser(RegisterUserModel registerUserModel);
 
-	String login(RegisterUserModel user) throws Exception;
+
+
 
 	List<User> getAllByVendorFalse();
 
@@ -71,6 +70,8 @@ public interface UserDetailsService {
 
 
 	void deleteUser(int id);
+
+	String login(User user) throws Exception;
 
 
 	

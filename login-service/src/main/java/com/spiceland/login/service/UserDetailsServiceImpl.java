@@ -18,7 +18,6 @@ import com.spiceland.login.dao.UserDetailsDao;
 import com.spiceland.login.entity.MyUserDetails;
 import com.spiceland.login.entity.Role;
 import com.spiceland.login.entity.User;
-import com.spiceland.login.model.RegisterUserModel;
 import com.spiceland.login.repo.UserReopsitory;
 
 @Service
@@ -75,23 +74,23 @@ public class UserDetailsServiceImpl
 
 	// Create the new user.
 	@Override
-	public String createUser(RegisterUserModel registerUserModel) {
-		String u = findUser(registerUserModel.getUsername());
-
+	public String createUser(User user) {
+		String u = findUser(user.getUsername());
+System.out.println(user.getArea());
 		if (u == "false") {
 			logger.debug("Existence in database is false for " + u);
-			if (registerUserModel.getRole().equals("VENDOR") || registerUserModel.getRole().equals("DELIVERY")) {
-				User user = new User(registerUserModel.getName(), registerUserModel.getEmail(),
-						registerUserModel.getUsername(),
-						webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
-						registerUserModel.getAddress(), registerUserModel.getArea(), false,
-						registerUserModel.getContact(), registerUserModel.getRole());
+			if (user.getRole().equals("VENDOR") || user.getRole().equals("DELIVERY")) {
+				User u1 = new User(user.getName(), user.getEmail(),
+						user.getUsername(),
+						webSecurityConfig.passwordEncoder().encode(user.getPass()),
+						user.getAddress(), user.getArea(), false,
+						user.getContact(), user.getRole());
 				Role role1 = roleService.getbyName(user.getRole());
 
 				Set<Role> roles = new HashSet<Role>();
 				roles.add(role1);
 				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>vendorrrr" + roles);
-				user.setRoles(roles);
+				u1.setRoles(roles);
 				logger.debug("Creating the user with details " + user);
 				// service.createUser(user);
 				logger.info("Creating New User");
@@ -99,18 +98,18 @@ public class UserDetailsServiceImpl
 				// MyUserDetails use = new MyUserDetails(user);
 				return "success";
 			} else {
-				User user = new User(registerUserModel.getName(), registerUserModel.getEmail(),
-						registerUserModel.getUsername(),
-						webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()),
-						registerUserModel.getAddress(), registerUserModel.getArea(), true,
-						registerUserModel.getContact(), registerUserModel.getRole());
+				User u1 = new User(user.getName(), user.getEmail(),
+						user.getUsername(),
+						webSecurityConfig.passwordEncoder().encode(user.getPass()),
+						user.getAddress(), user.getArea(), true,
+						user.getContact(), user.getRole());
 
 				Role role1 = roleService.getbyName(user.getRole());
 
 				Set<Role> roles = new HashSet<Role>();
 				roles.add(role1);
 				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>" + roles);
-				user.setRoles(roles);
+				u1.setRoles(roles);
 				logger.debug("Creating the user with details " + user);
 				logger.info("Creating New User");
 				userRepository.save(user);
@@ -135,7 +134,7 @@ public class UserDetailsServiceImpl
 	}
 
 	@Override
-	public String login(RegisterUserModel user) throws Exception{
+	public String login(User user) throws Exception{
 		String s1 = "VENDOR";
 		String s2 = "USER";
 		String s3 = "DELIVERY";

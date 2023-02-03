@@ -21,38 +21,33 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmailController {
 
 	@Autowired
-    private  EmailSenderService emailSenderService;
-	
+	private EmailSenderService emailSenderService;
+
 	@Autowired
 	private emailRepo emailRepo;
 
-    
+	@GetMapping("/get/{id}")
 
-   
-    
-    @GetMapping("/get/{id}")
-    
-    public EmailMessage get(@PathVariable int id){
-    	
-    	return emailRepo.findById(id).get();
-    }
-    
-    
-    @PostMapping("/email")
-    
-    public String mail(@RequestParam("to") String to,@RequestParam("subject")String subject,@RequestParam("message")String message) throws Exception{
-    	
-    	
-    	EmailMessage email =new EmailMessage("homelandspiceland@gmail.com",to, subject,message, true,"ADD_PRODUCT");
-    	
-    	//emailSenderService.sendEmail(to, subject,message);
-    	
-    	emailSenderService.save(email);
-    	
-    	
-    	
-    	return "success";
-    	
-    }
-    
+	public EmailMessage get(@PathVariable int id) {
+
+		return emailRepo.findById(id).get();
+	}
+
+	@PostMapping("/email")
+
+	public String mail(@RequestParam("to") String to, @RequestParam("subject") String subject,
+			@RequestParam("message") String message) throws Exception {
+
+//    	public String mail(String to, String subject, String message) throws Exception {
+
+		EmailMessage email = new EmailMessage("homelandspiceland@gmail.com", to, subject, message, true, "ADD_PRODUCT");
+
+		emailSenderService.sendEmail(to, subject, message);
+
+//        	emailSenderService.save(email);
+
+		return "success";
+
+	}
+
 }
