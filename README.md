@@ -101,7 +101,7 @@ _The main hours spent on the project for each person is expected to be ~30(?) ho
  
 1.	Users: Customer, Seller and Delivery Person 
 2.	Features of each Users and further project implementational details are documented:
-3.	https://github.com/akshay0828/Valtech-miniProject-Spice-Land/blob/main/DOCUMENTATION.pdf <br/>
+3.	https://github.com/akshay0828/HomeIndustry_Microservices/blob/master/Documents/DOCUMENTATION.pdf <br/>
        
        
 
